@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MENU</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        h2 {
+            text-align: center;
+            margin-top: 25px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .menu-button {
+            background-color: #4B0082;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .menu-button:hover {
+            background-color: #6006a0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    <div class="container">
+        <a href="/alteracao_senha" class="menu-button">Alterar senha</a>
+        <a href="/logout" class="menu-button">Logout</a>
+    </div>
+    <h2>Cadastro</h2>
+    <div class="container">
+        <a href="/cadastro/responsavel" class="menu-button">Responsáveis</a>
+        <a href="/cadastro/filiais" class="menu-button">Filiais</a>
+        <a href="/cadastro/centros" class="menu-button">Centros</a>
+    </div>
+    <h2>Recebimentos</h2>
+    <div class="container">
+        <a href="/chave-acesso" class="menu-button">Recebimento</a>
+    </div>
+    <h2>Tabelas</h2>
+    <div class="container">
+        <a href="/tabela-responsaveis" class="menu-button">Responsaveis</a>
+        <a href="/tabela-filiais" class="menu-button">Filiais</a>
+        <a href="/tabela-centros" class="menu-button">Centros</a>
+        <a href="/tabela-registros" class="menu-button">Registros</a>
+    </div>
+</body>
+</html>

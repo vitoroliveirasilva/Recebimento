@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mudar status</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Mudar status</h2>
+
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <script>
+                        alert("{{ category }}: {{ message }}");
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <label for="responsavel">Responsável:</label><br>
+            {{ form.responsavel(class="form-control", required=True) }}<br>
+            <select name="status" required>
+                <option value="Pendência almoxarifado">Pendência almoxarifado</option>
+                <option value="Aguardando ajuste">Aguardando ajuste</option>
+                <option value="Aguardando fiscal">Aguardando fiscal</option>
+                <option value="Aguardando lançamento de CTE">Aguardando lançamento de CTE</option>
+                <option value="NF cancelada">NF cancelada</option>
+                <option value="NF finalizada">NF finalizada</option>
+            </select><br>           
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+        <br>
+        <a href="/chave-acesso"><button>Voltar</button></a>         
+    </div>
+</body>
+</html>

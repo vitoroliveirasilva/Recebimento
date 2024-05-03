@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Responsável</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Responsável</h2>
+
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <script>
+                        alert("{{ category }}: {{ message }}");
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.nome.label }} {{ form.nome(size=32, class="form-control", value=responsavel.nome) }}
+            </div>
+            <div class="form-group">
+                {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control", value=responsavel.usuario) }}
+            </div>
+            <div class="form-group">
+                {{ form.alterar_senha.label }} {{ form.alterar_senha(class="form-check-input") }}
+            </div>
+            <div class="form-group" id="senha_fields" style="display:none;">
+                {{ form.nova_senha.label }} {{ form.nova_senha(class="form-control") }}
+                {{ form.confirm_nova_senha.label }} {{ form.confirm_nova_senha(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <label for="permissao">Permissão:</label>
+                <input type="checkbox" id="permissao" name="permissao" {% if responsavel.permissao %}checked{% endif %} value="true">
+            </div>
+            <div class="form-group">
+                <label for="ativo">Ativo:</label>
+                <input type="checkbox" id="ativo" name="ativo" {% if responsavel.ativo %}checked{% endif %} value="true">
+            </div>
+            <div class="form-group">
+                <label for="filial">Filiais:</label><br>
+                {% for filial in filiais %}
+                <input type="checkbox" id="filial_{{ filial.id }}" name="filiais" value="{{ filial.id }}"
+                       {% if filial.id in filiais_associadas %} checked {% endif %}>
+                <label for="filial_{{ filial.id }}">{{ filial.nome }}</label><br>
+                {% endfor %}
+            </div>            
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </form>
+        <br>
+        <hr><br>
+        <a href="/cadastro/responsavel"><button>Voltar ao menu</button></a>
+    </div>
+    <script>
+        document.getElementById('alterar_senha').addEventListener('change', function() {
+            var senhaFields = document.getElementById('senha_fields');
+            if (this.checked) {
+                senhaFields.style.display = 'block';
+            } else {
+                senhaFields.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

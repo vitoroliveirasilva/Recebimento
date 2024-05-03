@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+    <title>Registros</title> 
+</head>
+<body>
+    <H1>Centros</H1>
+    <div class="table-container" id="centros">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Filial</th>
+                <th>Excluir</th>
+            </tr>
+            {% for centro in centros %}
+            <tr>
+                <td>{{ centro.id }}</td>
+                <td>{{ centro.nome }}</td>
+                <td>{{ centro.filial.nome }}</td>
+                <td>
+                    <form method="POST" action="/excluir_centro/{{ centro.id }}">
+                        <input type="submit" value="Excluir">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    <a href="/"><button>Voltar ao menu</button></a>  
+</body>
+</html>

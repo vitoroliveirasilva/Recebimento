@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Centro</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Centro</h2>
+
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <script>
+                        alert("{{ category }}: {{ message }}");
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <label for="nome">Nome:</label><br>
+            <input type="text" name="nome" value="{{ centro.nome }}" required><br>
+            <label for="filial">Filial:</label><br>
+            <select name="filial" required>
+                {% for filial in filiais %}
+                    <option value="{{ filial.id }}" {% if filial.id == centro.filial_id %} selected {% endif %}>{{ filial.nome }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="submit" value="Atualizar">
+        </form><br>
+        <a href="/Cadastro/Centro"><button>Voltar</button></a>
+    </div>
+</body>
+</html>

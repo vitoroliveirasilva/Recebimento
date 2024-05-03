@@ -1,5 +1,4 @@
 from Recebimento import app, db
-from Recebimento.models import Responsavel
 
 if __name__ == '__main__':
     with app.app_context():

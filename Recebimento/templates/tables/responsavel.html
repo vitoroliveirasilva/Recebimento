@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+    <title>Registros</title>   
+</head>
+<body>
+    <H1>Responsaveis</H1>
+    <div class="table-container" id="responsaveis">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Ativo</th>
+                <th>Nome</th>
+                <th>Usuário</th>
+                <th>Permissão</th>
+                <th>Excluir</th>
+            </tr>
+            {% for responsavel in responsaveis %}
+            <tr>
+                <td>{{ responsavel.id }}</td>
+                <td>{{ "Sim" if responsavel.ativo else "Não" }}</td>
+                <td>{{ responsavel.nome }}</td>
+                <td>{{ responsavel.usuario }}</td>
+                <td>{{ "Administrador" if responsavel.permissao else "Usuário" }}</td>
+                <td>
+                    <form method="POST" action="/excluir_responsavel/{{ responsavel.id }}">
+                        <input type="submit" value="Excluir">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <br>
+    <a href="/"><button>Voltar ao menu</button></a>   
+</body>
+</html>

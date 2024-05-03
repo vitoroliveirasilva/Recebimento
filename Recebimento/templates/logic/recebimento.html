@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recebimento</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Recebimento</h2>
+
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <script>
+                        alert("{{ category }}: {{ message }}");
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <label for="codigo_cte">Código CTE:</label><br>
+            {{ form.codigo_cte(required=False) }}<br>
+            <label for="volumes">Volumes:</label><br>
+            {{ form.volumes(required=True) }}<br>
+            <label for="responsavel">Responsável:</label><br>
+            {{ form.responsavel(class="form-control", required=True) }}<br>
+            <label for="centro">Centro:</label><br>
+            {{ form.centro(class="form-control", required=True) }}<br>
+            <label for="prioridade">Prioridade:</label><br>
+            {{ form.prioridade(required=False) }}<br>
+            <label for="avarias">Avarias:</label><br>
+            {{ form.avarias(required=False) }}<br>
+            <label for="recusa">Recusa:</label><br>
+            {{ form.recusa(required=False) }}<br>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+        <br>
+        <a href="/chave-acesso"><button>Voltar</button></a>             
+    </div>
+</body>
+</html>

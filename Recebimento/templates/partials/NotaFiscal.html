@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+    <title>Registros</title>
+</head>
+<body>
+    <H1>Nota fiscal</H1>
+
+    <div class="table-container" id="nfs">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Chave de acesso</th>
+                <th>CNPJ</th>
+                <th>NF</th>
+                <th>Código CTE</th>
+                <th>Volumes</th>
+                <th>Filial</th>
+                <th>Centro</th>
+            </tr>
+            {% for nf in nfs %}
+            <tr>
+                <td>{{ nf.id }}</td>
+                <td>{{ nf.chave_acesso }}</td>
+                <td>{{ nf.filial.cnpj }}</td>
+                <td>{{ nf.nf }}</td>
+                <td>{{ nf.codigo_cte }}</td>
+                <td>{{ nf.volumes }}</td>
+                <td>{{ nf.filial.nome }}</td>
+                <td>{{ nf.centro.nome }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <br>
+    <a href="/tabela-registros"><button>Voltar</button></a>
+</body>
+</html>

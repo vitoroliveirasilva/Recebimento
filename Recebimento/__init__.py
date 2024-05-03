@@ -6,9 +6,6 @@ from dotenv import load_dotenv
 import os
 
 app = Flask(__name__, static_folder='./static')
-app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(), 'gterm', 'temporary_files')
-app.config['FONTS'] = os.path.join(os.getcwd(), 'gterm', 'fonts')
-app.config['PDFPARTS'] = os.path.join(os.getcwd(), 'gterm', 'pdfparts')
 
 # Load environment variables from .env file
 load_dotenv()

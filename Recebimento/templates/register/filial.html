@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Filial</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Filial</h2>
+
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <script>
+                        alert("{{ category }}: {{ message }}");
+                    </script>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            {{ form.hidden_tag() }} <!-- Adicionando o campo csrf_token -->
+            <label for="nome">Nome:</label><br>
+            <input type="text" name="nome" required><br>
+            <input type="submit" value="Registrar">
+        </form><br>
+        <a href="/"><button>Voltar ao menu</button></a>
+    </div>
+</body>
+</html>
