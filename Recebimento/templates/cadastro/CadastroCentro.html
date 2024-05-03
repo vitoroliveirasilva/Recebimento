@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Centro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastrar Centro</h2>
+
+        <!-- Bloco para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <label for="nome">Nome:</label><br>
+            <input type="text" name="nome" required><br>
+            <label for="filial">Filial:</label><br>
+            <select name="filial" required>
+                {% for filial in filiais %}
+                    <option value="{{ filial.id }}">{{ filial.nome }}</option>
+                {% endfor %}
+            </select><br>
+            <input type="submit" value="Registrar">
+        </form><br>
+        <hr><br>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Filial</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+            {% for centro in centros %}
+            <tr>
+                <td>{{ centro.id }}</td>
+                <td>{{ centro.nome }}</td>
+                <td>{{ centro.filial.nome }}</td>
+                <td>
+                    <form method="POST" action="/editar_centro/{{ centro.id }}">
+                        <input type="submit" value="Editar">
+                    </form>
+                </td> 
+                <td>
+                    <form method="POST" action="/excluir_centro/{{ centro.id }}">
+                        <input type="submit" value="Excluir">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table><br>
+        <a href="/"><button>Voltar ao menu</button></a>
+    </div>
+</body>
+</html>

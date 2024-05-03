@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST">
+            <label for="username">Usuário:</label><br>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Senha:</label><br>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="Login">
+        </form>
+        <hr>
+        <h2>Alterar Senha</h2>
+        <form method="POST" action="/alterar_senha">
+            <label for="old_password">Senha Antiga:</label><br>
+            <input type="password" id="old_password" name="old_password" required><br>
+            <label for="new_password">Nova Senha:</label><br>
+            <input type="password" id="new_password" name="new_password" required><br>
+            <input type="submit" value="Alterar Senha">
+        </form>
+    </div>
+</body>
+</html>

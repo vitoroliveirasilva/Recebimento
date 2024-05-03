@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Registro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Registrar Usuário</h2>
+
+        <!-- Bloco para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" required><br>
+            <label for="usuario">Usuário:</label><br>
+            <input type="text" id="usuario" name="usuario" required><br>
+            <label for="senha">Senha:</label><br>
+            <input type="password" id="senha" name="senha" required><br>
+            <label for="permissao">Permissão:</label><br>
+            <select id="permissao" name="permissao" required>
+                <option value="1">Usuário</option>
+                <option value="2">Administrador</option>
+            </select><br><br>
+            <label for="filial">Filiais:</label><br>
+            {% for filial in filiaisdropdown %}
+                <input type="checkbox" id="filial_{{ filial.id }}" name="filial" value="{{ filial.id }}">
+                <label for="filial_{{ filial.id }}">{{ filial.nome }}</label><br>
+            {% endfor %}<br>        
+            <input type="submit" value="Registrar">
+        </form><br>
+        <hr><br>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Usuário</th>
+                <th>Permissão</th>
+                <th>Filiais</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+            {% for responsavel, filiais in responsaveis_filiais.items() %}
+            <tr>
+                <td>{{ responsavel.id }}</td>
+                <td>{{ responsavel.nome }}</td>
+                <td>{{ responsavel.usuario }}</td>
+                <td>{{ responsavel.permissao }}</td>
+                <td>
+                    <ul>
+                        {% for filial in filiais %}
+                            <li>{{ filial.nome }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <form method="POST" action="/editar_responsavel/{{ responsavel.id }}">
+                        <input type="submit" value="Editar">
+                    </form>
+                </td>                
+                <td>
+                    <form method="POST" action="/excluir_responsavel/{{ responsavel.id }}">
+                        <input type="submit" value="Excluir">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table><br>
+        <a href="/"><button>Voltar ao menu</button></a>
+    </div>
+</body>
+</html>

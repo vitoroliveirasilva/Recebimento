@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Filial</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Filial</h2>
+
+        <!-- Bloco para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST">
+            <label for="nome">Nome:</label><br>
+            <input type="text" name="nome" value="{{ filial.nome }}" required><br>
+            <input type="submit" value="Atualizar">
+        </form><br>
+        <hr><br>
+        <a href="/Cadastro/Filial"><button>Voltar</button></a>
+    </div>
+</body>
+</html>

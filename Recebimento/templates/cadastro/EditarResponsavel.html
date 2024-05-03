@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Responsável</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Editar Responsável</h2>
+        
+        <!-- Bloco para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            <label for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" value="{{ responsavel.nome }}" required><br>
+            <label for="usuario">Usuário:</label><br>
+            <input type="text" id="usuario" name="usuario" value="{{ responsavel.usuario }}" required><br>
+            <label for="alterar_senha">Alterar senha:</label><br>
+            <select id="alterar_senha" name="alterar_senha" required>
+                <option value="1">Não</option>
+                <option value="0">Sim</option>
+            </select><br><br>
+            <div id="senha_fields" style="display:none;">
+                <label for="senha">Nova senha:</label><br>
+                <input type="password" id="senha" name="senha"><br><br>
+            </div>
+            <label for="permissao">Permissão:</label><br>
+            <select id="permissao" name="permissao" required>
+                <option value="1" {% if responsavel.permissao == 1 %}selected{% endif %}>Usuário</option>
+                <option value="2" {% if responsavel.permissao == 2 %}selected{% endif %}>Administrador</option>
+            </select><br><br>
+            <label for="filial">Filiais:</label><br>
+            {% for filial in filiais %}
+                <input type="checkbox" id="filial_{{ filial.id }}" name="filial" value="{{ filial.id }}"
+                       {% if filial.id in filiais_selecionadas %}checked{% endif %}>
+                <label for="filial_{{ filial.id }}">{{ filial.nome }}</label><br>
+            {% endfor %}<br>                       
+            <input type="submit" value="Atualizar">
+        </form><br>
+        <a href="/Cadastro/Usuario"><button>Cancelar</button></a>
+    </div>
+
+    <script>
+        document.getElementById('alterar_senha').addEventListener('change', function() {
+            var senhaFields = document.getElementById('senha_fields');
+            if (this.value === '0') {
+                senhaFields.style.display = 'block';
+                document.getElementById('senha').required = true;
+            } else {
+                senhaFields.style.display = 'none';
+                document.getElementById('senha').required = false;
+            }
+        });
+    </script>
+</body>
+</html>
