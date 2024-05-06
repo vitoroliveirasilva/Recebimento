@@ -30,6 +30,15 @@
             {% endfor %}
         </table>
     </div>
+    <div>
+        {% if centros.has_prev %}
+            <a href="{{ url_for('table_centros', page=centros.prev_num) }}">Anterior</a>
+        {% endif %}
+        <span>Página {{ centros.page }} de {{ centros.pages }}</span>
+        {% if centros.has_next %}
+            <a href="{{ url_for('table_centros', page=centros.next_num) }}">Próxima</a>
+        {% endif %}
+    </div>
     <br>
     <a href="/"><button>Voltar ao menu</button></a>  
 </body>
