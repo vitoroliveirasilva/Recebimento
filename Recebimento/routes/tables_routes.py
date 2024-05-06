@@ -1,8 +1,8 @@
-from flask import render_template
+from flask import render_template, request
 from Recebimento import app
 from flask_login import login_required
 from Recebimento.utils import get_all_users, get_all_filiais, get_all_centros, get_all_registros
-from Recebimento.models import NotaFiscal
+from Recebimento.models import NotaFiscal, Filial
 
 
 @app.route('/tabela-responsaveis')
@@ -13,7 +13,10 @@ def table_responsaveis():
 @app.route('/tabela-filiais')
 @login_required
 def table_filiais():
-    return render_template('/tables/filial.html', filiais=get_all_filiais())
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 2, type=int)
+    filiais = Filial.query.paginate(page=page, per_page=per_page, error_out=False)
+    return render_template('/tables/filial.html', filiais=filiais)
 
 @app.route('/tabela-centros')
 @login_required

@@ -20,7 +20,7 @@ def handle_mudar_status(form):
         return redirect('/chave-acesso')
 
 def handle_estorno(form):
-    if nota_fiscal_exists(form.chave_acesso.data) and not get_last_status(form.chave_acesso.data)=="Estornado":
+    if not nota_fiscal_exists(form.chave_acesso.data) or get_last_status(form.chave_acesso.data)=="Estornado":
         return redirect('/estorno')
     else:
         flash("A chave de acesso não está cadastrada.", "Erro:")

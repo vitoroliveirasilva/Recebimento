@@ -15,7 +15,7 @@
                 <th>Nome</th>
                 <th>Excluir</th>
             </tr>
-            {% for filial in filiais %}
+            {% for filial in filiais.items %}
             <tr>
                 <td>{{ filial.id }}</td>
                 <td>{{ filial.nome }}</td>
@@ -27,6 +27,15 @@
             </tr>
             {% endfor %}
         </table>
+    </div>
+    <div>
+        {% if filiais.has_prev %}
+            <a href="{{ url_for('table_filiais', page=filiais.prev_num) }}">Anterior</a>
+        {% endif %}
+        <span>Página {{ filiais.page }} de {{ filiais.pages }}</span>
+        {% if filiais.has_next %}
+            <a href="{{ url_for('table_filiais', page=filiais.next_num) }}">Próxima</a>
+        {% endif %}
     </div>
     <br>
     <a href="/"><button>Voltar ao menu</button></a>
