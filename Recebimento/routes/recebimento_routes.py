@@ -21,10 +21,10 @@ def cadastro_recebimento():
                 register_new_recebimento(get_recebimento_data(form, nova_nf.id), db)
                 flash('Recebimento registrado com sucesso!', 'success')
                 delete_session()
-                return redirect('/chave-acesso')
+                return redirect('/')
             else:
                 flash("Esta chave de acesso já está cadastrada.", 'error')
-                return redirect('/chave-acesso')
+                return redirect('/')
         except ValueError as e:
             flash(str(e), 'error')
     elif form.errors:

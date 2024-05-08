@@ -15,7 +15,7 @@ def estorno():
             register_estorno(form, session.get('chave_acesso'), db)
             flash('Recebimento registrado com sucesso!', 'success')
             delete_session()
-            return redirect('/chave-acesso')
+            return redirect('/')
         except Exception as e:
             flash(f'Erro ao registrar o novo status: {str(e)}')
     elif form.errors:

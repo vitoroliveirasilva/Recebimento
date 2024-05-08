@@ -6,22 +6,25 @@ def get_filiais_por_responsavel(user_id):
     return {Responsavel.query.get(user_id): [rf.filial for rf in Responsavel.query.get(user_id).responsaveis_filial]}
 
 def handle_recebimento(form):
-    if not nota_fiscal_exists(form.chave_acesso.data) or get_last_status(form.chave_acesso.data)=="Estornado":
+    last_status = get_last_status(form.chave_acesso.data)
+    if not nota_fiscal_exists(form.chave_acesso.data) or (last_status and last_status.status=="Estornado"):
         return redirect('/cadastro/recebimento')
     else:
-        flash("A chave de acesso já está cadastrada.", "Erro:")
-        return redirect('/chave-acesso')
+        flash("A chave de acesso já está cadastrada ou o último status não é 'Estornado'.", "Erro:")
+        return redirect('/')
 
 def handle_mudar_status(form):
-    if nota_fiscal_exists(form.chave_acesso.data):
+    last_status = get_last_status(form.chave_acesso.data)
+    if nota_fiscal_exists(form.chave_acesso.data) and (last_status and last_status.status!="Estornado"):
         return redirect('/mudar-status')
     else:
-        flash("A chave de acesso não está cadastrada.", "Erro:")
-        return redirect('/chave-acesso')
+        flash("A chave de acesso não está cadastrada ou o último status é 'Estornado'.", "Erro:")
+        return redirect('/')
 
 def handle_estorno(form):
-    if not nota_fiscal_exists(form.chave_acesso.data) or get_last_status(form.chave_acesso.data)=="Estornado":
+    last_status = get_last_status(form.chave_acesso.data)
+    if nota_fiscal_exists(form.chave_acesso.data) and (last_status and last_status.status!="Estornado"):
         return redirect('/estorno')
     else:
-        flash("A chave de acesso não está cadastrada.", "Erro:")
-        return redirect('/chave-acesso')
+        flash("A chave de acesso não está cadastrada ou o último status é 'Estornado'.", "Erro:")
+        return redirect('/')

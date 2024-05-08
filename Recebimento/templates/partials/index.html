@@ -5,35 +5,45 @@
 
 {% block content %}
     <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <script>
-                        alert("{{ category }}: {{ message }}");
-                    </script>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <!-- Seção para exibir mensagens flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-        <form method="POST">
-            {{ form.csrf_token }}
-            <label for="chave_acesso">Chave de acesso:</label><br>
-            {{ form.chave_acesso() }}<br>
-            <label for="filial_id">Filial:</label><br>
-            <select name="filial">
-                {% for responsavel, filiais in filiais_por_responsavel.items() %}
-                    {% for filial in filiais %}
-                        <option value="{{ filial.id }}">{{ filial.nome }}</option>
-                    {% endfor %}
-                {% endfor %}
-            </select><br>
-            <div>
-                <button type="submit" name="action" value="recebimento" class="btn btn-primary">Recebimento</button>
-                <button type="submit" name="action" value="mudar status" class="btn btn-primary">Mudar status</button>
-                <button type="submit" name="action" value="estorno" class="btn btn-primary">Estorno</button>
+                <form method="POST">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        <label for="chave_acesso">Chave de acesso:</label>
+                        {{ form.chave_acesso(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        <label for="filial_id">Filial:</label>
+                        <select name="filial" class="form-control">
+                            {% for responsavel, filiais in filiais_por_responsavel.items() %}
+                                {% for filial in filiais %}
+                                    <option value="{{ filial.id }}">{{ filial.nome }}</option>
+                                {% endfor %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" name="action" value="recebimento" class="btn btn-primary btn-block">Recebimento</button>
+                        <button type="submit" name="action" value="mudar status" class="btn btn-primary btn-block">Mudar status</button>
+                        <button type="submit" name="action" value="estorno" class="btn btn-primary btn-block">Estorno</button>
+                    </div>
+                </form>
             </div>
-        </form>
-        <hr>
-        <a href="/"><button>Voltar para o menu</button></a>
+        </div>
     </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, IntegerField, BooleanField
-from wtforms.validators import DataRequired, Length, Optional
+from wtforms.validators import DataRequired, Length, Optional,NumberRange
 
 
 class ChaveAcessoForm(FlaskForm):
@@ -8,14 +8,15 @@ class ChaveAcessoForm(FlaskForm):
     filial = SelectField('filial', coerce=int, choices=[], validators=[DataRequired()])
 
 class RecebimentoForm(FlaskForm):
-    codigo_cte = StringField('Código CTE', validators=[Optional()])
-    volumes = IntegerField('Volumes', validators=[DataRequired()])
+    codigo_cte = StringField('Código CTE', validators=[Optional(), Length(min=1, max=100)])
+    volumes = IntegerField('Volumes', validators=[DataRequired(), NumberRange(min=1, max=1000)])
     responsavel = SelectField('Responsável', coerce=int, choices=[], validators=[DataRequired()])
     centro = SelectField('Centro', coerce=int, choices=[], validators=[DataRequired()])
     prioridade = BooleanField('Prioridade', validators=[Optional()])
     avarias = BooleanField('Avarias', validators=[Optional()])
     recusa = BooleanField('Recusa', validators=[Optional()])
     submit = SubmitField('Registrar')
+
 
 class MudarStatusForm(FlaskForm):
     responsavel = SelectField('responsavel', coerce=int, choices=[], validators=[DataRequired()])

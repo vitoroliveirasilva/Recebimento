@@ -1,7 +1,8 @@
 from flask import render_template, request
-from Recebimento import app
+from Recebimento import app, db
 from flask_login import login_required
 from Recebimento.models import NotaFiscal, Filial, Centro, RegistroRecebimento, Responsavel
+from sqlalchemy import and_, desc, func
 
 @app.route('/tabela-responsaveis')
 @login_required
@@ -27,13 +28,34 @@ def table_centros():
     centros = Centro.query.paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/centro.html', centros=centros)
 
-@app.route('/tabela-registros')
+@app.route('/tabela-all-registros')
 @login_required
-def table_registros():
+def table_registros_all():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 5, type=int)
     registros = RegistroRecebimento.query.paginate(page=page, per_page=per_page, error_out=False)
-    return render_template('/tables/registros.html', registros=registros)
+    return render_template('/tables/all_registros.html', registros=registros)
+
+from sqlalchemy import desc, func
+from sqlalchemy.sql import label
+
+from sqlalchemy import desc, func
+
+from sqlalchemy import desc, func
+
+@app.route('/tabela-last-registros')
+@login_required
+def table_registros_last():
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 5, type=int)
+
+    # Subconsulta para encontrar o maior id para cada nota fiscal
+    subquery = db.session.query(RegistroRecebimento.nota_fiscal_id, func.max(RegistroRecebimento.id).label('max_id')).group_by(RegistroRecebimento.nota_fiscal_id).subquery('t')
+
+    # Junta a subconsulta de volta à tabela original para obter os registros correspondentes
+    registros = db.session.query(RegistroRecebimento).join(subquery, and_(RegistroRecebimento.nota_fiscal_id == subquery.c.nota_fiscal_id, RegistroRecebimento.id == subquery.c.max_id)).paginate(page=page, per_page=per_page, error_out=False)
+
+    return render_template('/tables/last_registros.html', registros=registros)
 
 @app.route('/chave_acesso/<int:nota_fiscal_id>', methods=['GET', 'POST'])
 @login_required

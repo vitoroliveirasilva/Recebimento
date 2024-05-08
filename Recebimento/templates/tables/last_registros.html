@@ -36,11 +36,11 @@
     </div>
     <div>
         {% if registros.has_prev %}
-            <a href="{{ url_for('table_registros', page=registros.prev_num) }}">Anterior</a>
+            <a href="{{ url_for('table_registros_last', page=registros.prev_num) }}">Anterior</a>
         {% endif %}
         <span>Página {{ registros.page }} de {{ registros.pages }}</span>
         {% if registros.has_next %}
-            <a href="{{ url_for('table_registros', page=registros.next_num) }}">Próxima</a>
+            <a href="{{ url_for('table_registros_last', page=registros.next_num) }}">Próxima</a>
         {% endif %}
     </div>
     <br>

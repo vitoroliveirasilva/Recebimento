@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
+    <title>Registros</title>
+</head>
+<body>
+    <H1>Registros</H1>
+    <div class="table-container" id="registros">
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Chave de acesso</th>
+                <th>Data recebimento</th>
+                <th>Status</th>
+                <th>Data guarda</th>
+                <th>Prioridade</th>
+                <th>Responsável</th>
+                <th>Data atualização</th>
+            </tr>
+            {% for registro in registros %}
+            <tr>
+                <td>{{ registro.id }}</td>
+                <td><a href="/chave_acesso/{{registro.nota_fiscal.id}}">{{ registro.nota_fiscal.chave_acesso }}</a></td>
+                <td>{{ registro.data_recebimento.strftime("%d/%m/%Y %H:%M") }}</td>
+                <td>{{ registro.status }}</td>
+                <td>{{ registro.data_guarda.strftime("%d/%m/%Y") if registro.data_guarda is not none else "" }}</td>
+                <td>{{ "Sim" if registro.prioridade else "Não" }}</td>
+                <td>{{ registro.responsavel.nome }}</td>
+                <td>{{ registro.data_atualizacao.strftime("%d/%m/%Y %H:%M") }}</td>
+            </tr>                    
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        {% if registros.has_prev %}
+            <a href="{{ url_for('table_registros_all', page=registros.prev_num) }}">Anterior</a>
+        {% endif %}
+        <span>Página {{ registros.page }} de {{ registros.pages }}</span>
+        {% if registros.has_next %}
+            <a href="{{ url_for('table_registros_all', page=registros.next_num) }}">Próxima</a>
+        {% endif %}
+    </div>
+    <br>
+    <a href="/"><button>Voltar ao menu</button></a> 
+</body>
+</html>

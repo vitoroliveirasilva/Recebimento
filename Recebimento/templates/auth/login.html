@@ -10,18 +10,7 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-4">
-                <!-- Seção para exibir mensagens flash -->
-                {% with messages = get_flashed_messages(with_categories=true) %}
-                    {% if messages %}
-                        {% for category, message in messages %}
-                            <script>
-                                alert("{{ category }}: {{ message }}");
-                            </script>
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}
-
-                <h2 class="text-center">Login</h2>
+                <h1 class="text-center">Login</h1>
                 <form method="POST">
                     {{ form.csrf_token }}
                     <div class="form-group">
@@ -32,10 +21,25 @@
                         <label for="password">Senha</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="Senha">
                     </div>
+                    <!-- Seção para exibir mensagens flash -->
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                     <button type="submit" class="btn btn-primary btn-block">Entrar</button>
                 </form>
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

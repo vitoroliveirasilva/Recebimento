@@ -1,46 +1,60 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recebimento</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% set title = "Recebimento" %}
+{% set header = "Inserir Chave de Acesso e Filial" %}
+
+{% block content %}
     <div class="container">
-        <h2>Recebimento</h2>
+        <div class="row justify-content-center mt-5">
+            <div class="col-lg-6">
+                <!-- Seção para exibir mensagens flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-        <!-- Seção para exibir mensagens flash -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <script>
-                        alert("{{ category }}: {{ message }}");
-                    </script>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <form method="POST">
-            {{ form.csrf_token }}
-            {{ form.hidden_tag() }}
-            <label for="codigo_cte">Código CTE:</label><br>
-            {{ form.codigo_cte(required=False) }}<br>
-            <label for="volumes">Volumes:</label><br>
-            {{ form.volumes(required=True) }}<br>
-            <label for="responsavel">Responsável:</label><br>
-            {{ form.responsavel(class="form-control", required=True) }}<br>
-            <label for="centro">Centro:</label><br>
-            {{ form.centro(class="form-control", required=True) }}<br>
-            <label for="prioridade">Prioridade:</label><br>
-            {{ form.prioridade(required=False) }}<br>
-            <label for="avarias">Avarias:</label><br>
-            {{ form.avarias(required=False) }}<br>
-            <label for="recusa">Recusa:</label><br>
-            {{ form.recusa(required=False) }}<br>
-            <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
-        <br>
-        <a href="/chave-acesso"><button>Voltar</button></a>             
+                <form method="POST">
+                    {{ form.csrf_token }}
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="codigo_cte">Código CTE:</label>
+                        {{ form.codigo_cte(class="form-control", required=False) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="volumes">Volumes:</label>
+                        {{ form.volumes(class="form-control", required=True) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="responsavel">Responsável:</label>
+                        {{ form.responsavel(class="form-control", required=True) }}
+                    </div>
+                    <div class="form-group">
+                        <label for="centro">Centro:</label>
+                        {{ form.centro(class="form-control", required=True) }}
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="prioridade">
+                        <label class="custom-control-label" for="prioridade">Prioridade</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="avarias">
+                        <label class="custom-control-label" for="avarias">Avarias</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="recusa">
+                        <label class="custom-control-label" for="recusa">Recusa</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                </form>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}
