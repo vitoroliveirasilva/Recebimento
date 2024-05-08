@@ -1,45 +1,54 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
-    <title>Registros</title> 
-</head>
-<body>
-    <H1>Centros</H1>
-    <div class="table-container" id="centros">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Filial</th>
-                <th>Excluir</th>
-            </tr>
-            {% for centro in centros %}
-            <tr>
-                <td>{{ centro.id }}</td>
-                <td>{{ centro.nome }}</td>
-                <td>{{ centro.filial.nome }}</td>
-                <td>
-                    <form method="POST" action="/excluir_centro/{{ centro.id }}">
-                        <input type="submit" value="Excluir">
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+{% extends "base.html" %}
+
+{% set title = "Registros - centros" %}
+{% set header = "Registros - centros" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Centros</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Filial</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for centro in centros %}
+                            <tr>
+                                <td>{{ centro.nome }}</td>
+                                <td>{{ centro.filial.nome }}</td>
+                                <td>
+                                    <form method="POST" action="/excluir_centro/{{ centro.id }}">
+                                        <input type="submit" value="Excluir" class="btn btn-danger">
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if centros.has_prev %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('table_centros', page=centros.prev_num) }}">Anterior</a></li>
+                        {% endif %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Página {{ centros.page }} de {{ centros.pages }}</a></li>
+                        {% if centros.has_next %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('table_centros', page=centros.next_num) }}">Próxima</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="mt-3">
+            <a href="/" class="btn btn-secondary btn-block">Voltar ao menu</a>
+        </div>
     </div>
-    <div>
-        {% if centros.has_prev %}
-            <a href="{{ url_for('table_centros', page=centros.prev_num) }}">Anterior</a>
-        {% endif %}
-        <span>Página {{ centros.page }} de {{ centros.pages }}</span>
-        {% if centros.has_next %}
-            <a href="{{ url_for('table_centros', page=centros.next_num) }}">Próxima</a>
-        {% endif %}
-    </div>
-    <br>
-    <a href="/"><button>Voltar ao menu</button></a>  
-</body>
-</html>
+{% endblock %}

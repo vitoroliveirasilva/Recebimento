@@ -33,7 +33,7 @@ def table_centros():
 @login_required
 def table_registros_all():
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 5, type=int)
+    per_page = request.args.get('per_page', 3, type=int)
     registros = RegistroRecebimento.query.paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/all_registros.html', registros=registros)
 
@@ -41,7 +41,7 @@ def table_registros_all():
 @login_required
 def table_registros_last():
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 5, type=int)
+    per_page = request.args.get('per_page', 3, type=int)
 
     # Subconsulta para encontrar o maior id para cada nota fiscal
     subquery = db.session.query(RegistroRecebimento.nota_fiscal_id, func.max(RegistroRecebimento.id).label('max_id')).group_by(RegistroRecebimento.nota_fiscal_id).subquery('t')

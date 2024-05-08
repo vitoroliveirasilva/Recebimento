@@ -1,49 +1,58 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/table.css') }}">
-    <title>Registros</title>   
-</head>
-<body>
-    <H1>Responsaveis</H1>
-    <div class="table-container" id="responsaveis">
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Ativo</th>
-                <th>Nome</th>
-                <th>Usuário</th>
-                <th>Permissão</th>
-                <th>Excluir</th>
-            </tr>
-            {% for responsavel in responsaveis %}
-            <tr>
-                <td>{{ responsavel.id }}</td>
-                <td>{{ "Sim" if responsavel.ativo else "Não" }}</td>
-                <td>{{ responsavel.nome }}</td>
-                <td>{{ responsavel.usuario }}</td>
-                <td>{{ "Administrador" if responsavel.permissao else "Usuário" }}</td>
-                <td>
-                    <form method="POST" action="/excluir_responsavel/{{ responsavel.id }}">
-                        <input type="submit" value="Excluir">
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+{% extends "base.html" %}
+
+{% set title = "Registros - reponsáveis" %}
+{% set header = "Registros - reponsáveis" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Responsáveis</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Ativo</th>
+                                <th>Usuário</th>
+                                <th>Permissão</th>
+                                <th>Excluir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for responsavel in responsaveis %}
+                            <tr>
+                                <td>{{ responsavel.nome }}</td>
+                                <td>{{ "Sim" if responsavel.ativo else "Não" }}</td>
+                                <td>{{ responsavel.usuario }}</td>
+                                <td>{{ "Administrador" if responsavel.permissao else "Usuário" }}</td>
+                                <td>
+                                    <form method="POST" action="/excluir_responsavel/{{ responsavel.id }}">
+                                        <input type="submit" value="Excluir" class="btn btn-danger">
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {% if responsaveis.has_prev %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('table_responsaveis', page=responsaveis.prev_num) }}">Anterior</a></li>
+                        {% endif %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Página {{ responsaveis.page }} de {{ responsaveis.pages }}</a></li>
+                        {% if responsaveis.has_next %}
+                            <li class="page-item"><a class="page-link" href="{{ url_for('table_responsaveis', page=responsaveis.next_num) }}">Próxima</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="mt-3">
+            <a href="/" class="btn btn-secondary btn-block">Voltar ao menu</a>
+        </div>
     </div>
-    <div>
-        {% if responsaveis.has_prev %}
-            <a href="{{ url_for('table_responsaveis', page=responsaveis.prev_num) }}">Anterior</a>
-        {% endif %}
-        <span>Página {{ responsaveis.page }} de {{ responsaveis.pages }}</span>
-        {% if responsaveis.has_next %}
-            <a href="{{ url_for('table_responsaveis', page=responsaveis.next_num) }}">Próxima</a>
-        {% endif %}
-    </div>    
-    <br>
-    <a href="/"><button>Voltar ao menu</button></a>   
-</body>
-</html>
+{% endblock %}
