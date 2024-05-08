@@ -1,34 +1,38 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estorno</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% set title = "Estorno" %}
+{% set header = "Estorno - NF " + nf %}
+
+{% block content %}
     <div class="container">
-        <h2>Estorno</h2>
+        <div class="row justify-content-center mt-5">
+            <div class="col-sm-12 col-md-8 col-lg-6">
+                <!-- Seção para exibir mensagens flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-        <!-- Seção para exibir mensagens flash -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <script>
-                        alert("{{ category }}: {{ message }}");
-                    </script>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
-        <form method="POST">
-            {{ form.csrf_token }}
-            {{ form.hidden_tag() }}
-            <label for="responsavel">Responsável:</label><br>
-            {{ form.responsavel(class="form-control", required=True) }}<br>         
-            <button type="submit" class="btn btn-primary">Registrar</button>
-        </form>
-        <br>
-        <a href="/"><button>Voltar</button></a>         
+                <form method="POST">
+                    {{ form.csrf_token }}
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        <label for="responsavel">Responsável:</label>
+                        {{ form.responsavel(class="form-control", required=True) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                </form>
+                <br>
+                <a href="/" class="btn btn-secondary btn-block">Voltar</a>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

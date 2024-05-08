@@ -2,7 +2,8 @@ from flask import render_template, request
 from Recebimento import app, db
 from flask_login import login_required
 from Recebimento.models import NotaFiscal, Filial, Centro, RegistroRecebimento, Responsavel
-from sqlalchemy import and_, desc, func
+from sqlalchemy import and_, func
+from sqlalchemy.sql import label
 
 @app.route('/tabela-responsaveis')
 @login_required
@@ -35,13 +36,6 @@ def table_registros_all():
     per_page = request.args.get('per_page', 5, type=int)
     registros = RegistroRecebimento.query.paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/all_registros.html', registros=registros)
-
-from sqlalchemy import desc, func
-from sqlalchemy.sql import label
-
-from sqlalchemy import desc, func
-
-from sqlalchemy import desc, func
 
 @app.route('/tabela-last-registros')
 @login_required

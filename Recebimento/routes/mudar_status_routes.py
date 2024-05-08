@@ -3,7 +3,7 @@ from Recebimento import app, db
 from Recebimento.models import NotaFiscal, RegistroRecebimento
 from flask_login import login_required
 from Recebimento.forms import MudarStatusForm
-from Recebimento.utils import delete_session, get_responsavel_choices, register_new_status
+from Recebimento.utils import delete_session, get_responsavel_choices, register_new_status, extrai_nf
 
 
 @app.route("/mudar-status", methods=['GET', 'POST'])
@@ -24,4 +24,4 @@ def mudar_status():
 
     notas = NotaFiscal.query.all()
     registros = RegistroRecebimento.query.all()
-    return render_template('/logic/mudar_status.html', form=form, notas=notas, registros=registros)
+    return render_template('/logic/mudar_status.html', form=form, notas=notas, registros=registros, nf=extrai_nf(session.get('chave_acesso')))

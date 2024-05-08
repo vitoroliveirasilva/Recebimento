@@ -2,7 +2,7 @@ from flask import render_template, redirect, flash, session
 from Recebimento import app, db
 from flask_login import login_required
 from Recebimento.forms import EstornoForm
-from Recebimento.utils import delete_session, get_responsavel_choices, register_estorno
+from Recebimento.utils import delete_session, get_responsavel_choices, register_estorno, extrai_nf
 
 
 @app.route("/estorno", methods=['GET', 'POST'])
@@ -21,4 +21,4 @@ def estorno():
     elif form.errors:
         flash(form.errors, 'error')
 
-    return render_template('/logic/estorno.html', form=form)
+    return render_template('/logic/estorno.html', form=form, nf=extrai_nf(session.get('chave_acesso')))
