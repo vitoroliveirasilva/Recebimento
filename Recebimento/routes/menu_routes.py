@@ -4,12 +4,12 @@ from flask_login import login_required, current_user
 from Recebimento.utils import delete_session, get_filiais_responsavel_choices, handle_recebimento, handle_mudar_status, handle_estorno
 from Recebimento.forms import ChaveAcessoForm
 
-@app.route('/')
+'''@app.route('/')
 @login_required
 def menu():
-    return render_template('/partials/nav.html', current_user=current_user)
+    return render_template('/partials/index.html', current_user=current_user)'''
 
-@app.route("/chave-acesso", methods=['GET', 'POST'])
+@app.route("/", methods=['GET', 'POST'])
 @login_required
 def cadastro_chaveacesso():
     delete_session()

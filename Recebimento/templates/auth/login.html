@@ -4,25 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-4">
+                <!-- Seção para exibir mensagens flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <script>
+                                alert("{{ category }}: {{ message }}");
+                            </script>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
 
-    <!-- Seção para exibir mensagens flash -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <script>
-                    alert("{{ category }}: {{ message }}");
-                </script>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <form method="POST">
-        {{ form.csrf_token }}
-        <input type="text" name="username" placeholder="Usuário">
-        <input type="password" name="password" placeholder="Senha">
-        <button type="submit">Entrar</button>
-    </form>
+                <h2 class="text-center">Login</h2>
+                <form method="POST">
+                    {{ form.csrf_token }}
+                    <div class="form-group">
+                        <label for="username">Usuário</label>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Usuário">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Senha">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
