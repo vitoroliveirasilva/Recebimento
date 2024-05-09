@@ -14,6 +14,7 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
                         </thead>
@@ -21,6 +22,11 @@
                             {% for filial in filiais.items %}
                             <tr>
                                 <td>{{ filial.nome }}</td>
+                                <td>
+                                    <form method="POST" action="/editar_filial/{{ filial.id }}">
+                                        <input type="submit" value="Editar" class="btn btn-warning">
+                                    </form>
+                                </td>
                                 <td>
                                     <form method="POST" action="/excluir_filial/{{ filial.id }}">
                                         <input type="submit" value="Excluir" class="btn btn-danger">

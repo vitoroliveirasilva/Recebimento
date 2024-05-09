@@ -32,7 +32,6 @@ def register_centro():
 def editar_centro(centro_id):
     centro = Centro.query.get_or_404(centro_id)
     form = EditarCentroForm(obj=centro)
-    form.filial.choices = get_filial_choices()
     
     if form.validate_on_submit():
         data = form.data

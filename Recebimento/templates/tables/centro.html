@@ -15,6 +15,7 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Filial</th>
+                                <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
                         </thead>
@@ -23,6 +24,11 @@
                             <tr>
                                 <td>{{ centro.nome }}</td>
                                 <td>{{ centro.filial.nome }}</td>
+                                <td>
+                                    <form method="POST" action="/editar_centro/{{ centro.id }}">
+                                        <input type="submit" value="Editar" class="btn btn-warning">
+                                    </form>
+                                </td>
                                 <td>
                                     <form method="POST" action="/excluir_centro/{{ centro.id }}">
                                         <input type="submit" value="Excluir" class="btn btn-danger">

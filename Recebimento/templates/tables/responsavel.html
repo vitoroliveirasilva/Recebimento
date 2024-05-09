@@ -17,6 +17,7 @@
                                 <th>Ativo</th>
                                 <th>Usuário</th>
                                 <th>Permissão</th>
+                                <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
                         </thead>
@@ -27,6 +28,11 @@
                                 <td>{{ "Sim" if responsavel.ativo else "Não" }}</td>
                                 <td>{{ responsavel.usuario }}</td>
                                 <td>{{ "Administrador" if responsavel.permissao else "Usuário" }}</td>
+                                <td>
+                                    <form method="POST" action="/editar_responsavel/{{ responsavel.id }}">
+                                        <input type="submit" value="Editar" class="btn btn-warning">
+                                    </form>
+                                </td>
                                 <td>
                                     <form method="POST" action="/excluir_responsavel/{{ responsavel.id }}">
                                         <input type="submit" value="Excluir" class="btn btn-danger">
