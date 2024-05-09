@@ -1,6 +1,6 @@
 from flask import render_template, redirect, flash
 from Recebimento import app, db
-from Recebimento.models import Responsavel, ResponsavelFilial
+from Recebimento.models import Responsavel, ResponsavelFilial, Filial
 from flask_login import login_required
 from Recebimento.forms import CadastroResponsavelForm, EditarResponsavelForm
 from Recebimento.utils import user_exists, register_new_responsavel, commit_or_rollback, update_responsavel, delete_responsavel, get_filial_choices
@@ -38,13 +38,17 @@ def editar_responsavel(responsavel_id):
     responsavel = Responsavel.query.get_or_404(responsavel_id)
     form = EditarResponsavelForm(obj=responsavel)
     
+    # Buscar as filiais
+    filiais = [(filial.id, filial.nome) for filial in Filial.query.all()]
+    filiais_associadas = [rf.filial_id for rf in responsavel.responsaveis_filial]
+    
     if form.validate_on_submit():
         update_responsavel(responsavel, form)
         commit_or_rollback()
         flash('O responsável foi atualizado com sucesso!', 'success')
         return redirect("/cadastro/responsaveis")
 
-    return render_template('/edit/responsavel.html', form=form, responsavel=responsavel)
+    return render_template('/edit/responsavel.html', form=form, responsavel=responsavel, filiais=filiais, filiais_associadas=filiais_associadas)
 
 @app.route('/excluir_responsavel/<int:responsavel_id>', methods=['POST'])
 @login_required

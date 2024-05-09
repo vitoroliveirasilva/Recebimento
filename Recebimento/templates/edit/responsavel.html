@@ -3,6 +3,15 @@
 {% set title = "Editar Responsável" %}
 
 {% block content %}
+    <style>
+        .large {
+            transform: scale(1.5);
+        }
+        .large-label {
+            font-size: 1em;
+            margin-left: 12px;
+        }
+    </style>
     <div class="container">
         <h1 class="form-group text-center mt-4">Editar Responsável</h1>
 
@@ -29,35 +38,47 @@
                 {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control", value=responsavel.usuario) }}
             </div>
             <div class="form-group">
-                {{ form.alterar_senha.label }} {{ form.alterar_senha(class="form-check-input") }}
+                <div class="form-check">
+                    <input class="form-check-input large" type="checkbox" id="alterar_senha" name="alterar_senha" {% if form.alterar_senha.data %}checked{% endif %}>
+                    <label class="form-check-label large-label" for="alterar_senha">
+                        {{ form.alterar_senha.label.text }}
+                    </label>
+                </div>
             </div>
+            
             <div class="form-group" id="senha_fields" style="display:none;">
                 {{ form.nova_senha.label }} {{ form.nova_senha(class="form-control") }}
                 {{ form.confirm_nova_senha.label }} {{ form.confirm_nova_senha(class="form-control") }}
             </div>
             <div class="form-group">
-                <label for="permissao">Permissão:</label>
-                <input type="checkbox" id="permissao" name="permissao" {% if responsavel.permissao %}checked{% endif %} value="true">
+                <div class="form-check">
+                    <input class="form-check-input large" type="checkbox" id="permissao" name="permissao" {% if responsavel.permissao %}checked{% endif %} value="true">
+                    <label class="form-check-label large-label" for="permissao">
+                        Administrador
+                    </label>
+                </div>
             </div>
             <div class="form-group">
-                <label for="ativo">Ativo:</label>
-                <input type="checkbox" id="ativo" name="ativo" {% if responsavel.ativo %}checked{% endif %} value="true">
+                <div class="form-check">
+                    <input class="form-check-input large" type="checkbox" id="ativo" name="ativo" {% if responsavel.ativo %}checked{% endif %} value="true">
+                    <label class="form-check-label large-label" for="ativo">
+                        Ativo
+                    </label>
+                </div>
             </div>
             <div class="form-group">
-                <label for="filial">Filiais:</label><br>
+                <label>Filiais:</label><br>
                 {% for filial in filiais %}
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="filial_{{ filial.id }}" name="filiais" value="{{ filial.id }}"
-                           {% if filial.id in filiais_associadas %} checked {% endif %}>
-                    <label class="form-check-label" for="filial_{{ filial.id }}">{{ filial.nome }}</label>
+                    <input class="form-check-input large" type="checkbox" id="filial_{{ filial[0] }}" name="filiais" value="{{ filial[0] }}"
+                           {% if filial[0] in filiais_associadas %} checked {% endif %}>
+                    <label class="form-check-label large-label" for="filial_{{ filial[0] }}">{{ filial[1] }}</label>
                 </div>
                 {% endfor %}
-            </div>            
+            </div>                                            
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
-        <br>
-        <hr><br>
-        <a href="/tabela-responsaveis" class="btn btn-secondary">Voltar ao menu</a>
+        <a href="/tabela-responsaveis" class="btn btn-secondary mt-3">Voltar ao menu</a>
     </div>
     <script>
         document.getElementById('alterar_senha').addEventListener('change', function() {
