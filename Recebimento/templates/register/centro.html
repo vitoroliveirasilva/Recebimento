@@ -1,34 +1,37 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Centro</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% set title = "Cadastrar Centro" %}
+
+{% block content %}
     <div class="container">
-        <h2>Cadastrar Centro</h2>
+        <h1 class="form-group text-center mt-4">Cadastrar Centro</h1>
 
         <!-- Seção para exibir mensagens flash -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <script>
-                        alert("{{ category }}: {{ message }}");
-                    </script>
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
         
         <form method="POST">
             {{ form.hidden_tag() }}
-            <label for="nome">Nome:</label><br>
-            <input type="text" name="nome" required><br>
-            <label for="filial">Filial:</label><br>
-            {{ form.filial(class="form-control") }}<br>
-            <input type="submit" value="Registrar">
-        </form><br>
-        <a href="/"><button>Voltar ao menu</button></a>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" name="nome" placeholder="Insira o centro" required>
+            </div>
+            <div class="form-group">
+                <label for="filial">Filial:</label>
+                {{ form.filial(class="form-control") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
+        <a href="/" class="btn btn-secondary mt-3">Voltar ao menu</a>
     </div>
-</body>
-</html>
+{% endblock %}

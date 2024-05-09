@@ -1,21 +1,21 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Responsável</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% set title = "Editar Responsável" %}
+
+{% block content %}
     <div class="container">
-        <h2>Editar Responsável</h2>
+        <h1 class="form-group text-center mt-4">Editar Responsável</h1>
 
         <!-- Seção para exibir mensagens flash -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <script>
-                        alert("{{ category }}: {{ message }}");
-                    </script>
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
@@ -46,16 +46,18 @@
             <div class="form-group">
                 <label for="filial">Filiais:</label><br>
                 {% for filial in filiais %}
-                <input type="checkbox" id="filial_{{ filial.id }}" name="filiais" value="{{ filial.id }}"
-                       {% if filial.id in filiais_associadas %} checked {% endif %}>
-                <label for="filial_{{ filial.id }}">{{ filial.nome }}</label><br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="filial_{{ filial.id }}" name="filiais" value="{{ filial.id }}"
+                           {% if filial.id in filiais_associadas %} checked {% endif %}>
+                    <label class="form-check-label" for="filial_{{ filial.id }}">{{ filial.nome }}</label>
+                </div>
                 {% endfor %}
             </div>            
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
         <br>
         <hr><br>
-        <a href="/tabela-responsaveis"><button>Voltar ao menu</button></a>
+        <a href="/tabela-responsaveis" class="btn btn-secondary">Voltar ao menu</a>
     </div>
     <script>
         document.getElementById('alterar_senha').addEventListener('change', function() {
@@ -67,5 +69,4 @@
             }
         });
     </script>
-</body>
-</html>
+{% endblock %}

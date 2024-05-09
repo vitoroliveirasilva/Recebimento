@@ -53,4 +53,4 @@ def excluir_filial(filial_id):
         flash('Filial excluída com sucesso.')
     else:
         flash('Erro ao excluir a filial.')
-    return redirect('/registros')
+    return redirect('/tabela-filiais')

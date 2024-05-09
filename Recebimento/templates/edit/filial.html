@@ -1,32 +1,33 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Filial</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% set title = "Editar Filial" %}
+
+{% block content %}
     <div class="container">
-        <h2>Editar Filial</h2>
+        <h1 class="form-group text-center mt-4">Editar Filial</h1>
 
         <!-- Seção para exibir mensagens flash -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
-                    <script>
-                        alert("{{ category }}: {{ message }}");
-                    </script>
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
                 {% endfor %}
             {% endif %}
         {% endwith %}
         
         <form method="POST">
             {{ form.hidden_tag() }}
-            <label for="nome">Nome:</label><br>
-            <input type="text" name="nome" value="{{ filial.nome }}" required><br>
-            <input type="submit" value="Atualizar">
-        </form><br>
-        <a href="/tabela-filiais"><button>Voltar</button></a>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" name="nome" value="{{ filial.nome }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Atualizar</button>
+        </form>
+        <a href="/tabela-filiais" class="btn btn-secondary mt-3">Voltar</a>
     </div>
-</body>
-</html>
+{% endblock %}

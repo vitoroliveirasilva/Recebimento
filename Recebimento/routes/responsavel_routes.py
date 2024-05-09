@@ -54,4 +54,4 @@ def excluir_responsavel(responsavel_id):
         flash('Responsável excluído com sucesso.', 'success')
     else:
         flash('Erro ao excluir o responsável.', 'Erro')
-    return redirect('/registros')
+    return redirect('/tabela-responsaveis')

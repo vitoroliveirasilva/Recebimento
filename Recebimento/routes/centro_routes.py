@@ -40,7 +40,7 @@ def editar_centro(centro_id):
             flash('Centro atualizado com sucesso.')
             return redirect('/cadastro/centros')
         else:
-            flash('Erro: Centro já existe. Por favor, escolha outro nome.')
+            flash('Centro já existe. Por favor, escolha outro nome.', 'Erro')
             return redirect(f'/editar_centro/{centro_id}')
 
     filiais = Filial.query.all()
@@ -51,7 +51,7 @@ def editar_centro(centro_id):
 def excluir_centro(centro_id):
     centro = Centro.query.get_or_404(centro_id)
     if delete_centro(centro, db):
-        flash('Centro excluído com sucesso.')
+        flash('Centro excluído com sucesso.', 'Sucesso')
     else:
         flash('Erro ao excluir o centro.')
-    return redirect('/registros')
+    return redirect('/tabela-centros')
