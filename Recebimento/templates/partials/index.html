@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% set title = "Recebimento" %}
-{% set header = "Inserir Chave de Acesso e Filial" %}
+{% set title = "Registrar NFe" %}
 
 {% block content %}
     <div class="container">
         <div class="row justify-content-center mt-5">
-            <div class="col-md-8">
+            <div class="col-md-9">
+                <h1 class="text-center">Registrar NFe</h1>
                 <!-- Seção para exibir mensagens flash -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -23,13 +23,14 @@
 
                 <form method="POST">
                     {{ form.csrf_token }}
-                    <div class="form-group">
+                    <div class="form-group mt-5">
                         <label for="chave_acesso">Chave de acesso:</label>
-                        {{ form.chave_acesso(class="form-control") }}
+                        {{ form.chave_acesso(class="form-control", placeholder="Insira a chave de acesso") }}
                     </div>
-                    <div class="form-group">
+                    <div class="form-group mt-3">
                         <label for="filial_id">Filial:</label>
                         <select name="filial" class="form-control">
+                            <option selected disabled value="">Selecione a filial</option>
                             {% for responsavel, filiais in filiais_por_responsavel.items() %}
                                 {% for filial in filiais %}
                                     <option value="{{ filial.id }}">{{ filial.nome }}</option>
@@ -37,12 +38,13 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="form-group">
-                        <button type="submit" name="action" value="recebimento" class="btn btn-primary btn-block">Recebimento</button>
-                        <button type="submit" name="action" value="mudar status" class="btn btn-primary btn-block">Mudar status</button>
-                        <button type="submit" name="action" value="estorno" class="btn btn-primary btn-block">Estorno</button>
-                    </div>
+                    <div class="form-group mt-5 d-flex">
+                        <button type="submit" name="action" value="recebimento" class="btn btn-primary flex-grow-1 mr-2 py-3">RECEBIMENTO</button>
+                        <button type="submit" name="action" value="mudar status" class="btn btn-primary flex-grow-1 mx-2 py-3">MUDAR STATUS</button>
+                        <button type="submit" name="action" value="estorno" class="btn btn-primary flex-grow-1 ml-2 py-3">ESTORNO</button>
+                    </div>                    
                 </form>
+                
             </div>
         </div>
     </div>

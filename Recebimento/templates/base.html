@@ -9,45 +9,43 @@
     <title>{{ title }}</title> <!-- Título dinâmico -->
 </head>
 <body>
-    <header class="bg-dark text-white p-3">
-        <h1 class="text-center">{{ header }}</h1> <!-- Cabeçalho dinâmico -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="/">Recebimento</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tabelas</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/tabela-responsaveis">Responsáveis</a>
+                                <a class="dropdown-item" href="/tabela-filiais">Filiais</a>
+                                <a class="dropdown-item" href="/tabela-centros">Centros</a>
+                                <a class="dropdown-item" href="/tabela-all-registros">Histórico de registros</a>
+                                <a class="dropdown-item" href="/tabela-last-registros">Registros atuais</a>
+                            </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastro</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/cadastro/responsavel">Responsáveis</a>
+                                <a class="dropdown-item" href="/cadastro/filiais">Filiais</a>
+                                <a class="dropdown-item" href="/cadastro/centros">Centros</a>
+                            </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/alteracao_senha">Alterar senha</a>
+                                <a class="dropdown-item" href="/logout">Logout</a>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
     </header>
-
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Recebimento</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tabelas</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/tabela-responsaveis">Responsáveis</a>
-                            <a class="dropdown-item" href="/tabela-filiais">Filiais</a>
-                            <a class="dropdown-item" href="/tabela-centros">Centros</a>
-                            <a class="dropdown-item" href="/tabela-all-registros">Histórico de registros</a>
-                            <a class="dropdown-item" href="/tabela-last-registros">Registros atuais</a>
-                        </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastro</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/cadastro/responsavel">Responsáveis</a>
-                            <a class="dropdown-item" href="/cadastro/filiais">Filiais</a>
-                            <a class="dropdown-item" href="/cadastro/centros">Centros</a>
-                        </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/alteracao_senha">Alterar senha</a>
-                            <a class="dropdown-item" href="/logout">Logout</a>
-                        </div>
-                </li>
-            </ul>
-        </div>
-    </nav>
 
     <main>
         {% block content %}
