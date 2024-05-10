@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% set title = "Recebimento" %}
-{% set header = "Recebimento - NF " + nf %}
 
 {% block content %}
     <div class="container">
-        <div class="row justify-content-center mt-5">
+        <h1 class="form-group text-center mt-4">Recebimento - NF {{ nf }}</h1>
+        <div class="row justify-content-center">
             <div class="col-lg-6">
                 <!-- Seção para exibir mensagens flash -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
@@ -40,22 +40,25 @@
                         <label for="centro">Centro:</label>
                         {{ form.centro(class="form-control", required=True) }}
                     </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="prioridade">
-                        <label class="custom-control-label" for="prioridade">Prioridade</label>
+                    <div class="d-flex justify-content-center">
+                        <div class="custom-control custom-checkbox mr-3 d-flex align-items-center" style="font-size: 1.2em;">
+                            <input type="checkbox" class="custom-control-input" id="prioridade">
+                            <label class="custom-control-label" for="prioridade">Prioridade</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-3 d-flex align-items-center" style="font-size: 1.2em;">
+                            <input type="checkbox" class="custom-control-input" id="avarias">
+                            <label class="custom-control-label" for="avarias">Avarias</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-3 d-flex align-items-center" style="font-size: 1.2em;">
+                            <input type="checkbox" class="custom-control-input" id="recusa">
+                            <label class="custom-control-label" for="recusa">Recusa</label>
+                        </div>
+                    </div>                                    
+                    <div class="form-group mt-2 d-flex">
+                        <button type="submit" class="btn btn-primary flex-grow-1 py-2" style="text-transform: uppercase;">Registrar</button>
                     </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="avarias">
-                        <label class="custom-control-label" for="avarias">Avarias</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="recusa">
-                        <label class="custom-control-label" for="recusa">Recusa</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Registrar</button>
                 </form>
-                <br>
-                <a href="/" class="btn btn-secondary btn-block">Voltar</a>
+                <a href="/" class="btn btn-secondary btn-block mt-3"">Voltar</a>
             </div>
         </div>
     </div>
