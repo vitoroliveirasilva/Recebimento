@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="filial_id">Filial:</label>
-                        <select name="filial" class="form-control">
+                        <select name="filial" class="form-control" required>
                             <option selected disabled value="">Selecione a filial</option>
                             {% for responsavel, filiais in filiais_por_responsavel.items() %}
                                 {% for filial in filiais %}

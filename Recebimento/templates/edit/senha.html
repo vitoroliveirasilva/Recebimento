@@ -1,51 +1,52 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alteração de senha</title>
-</head>
-<body>
-    <h1>Alterar Senha</h1>
-    
-    <!-- Seção para exibir mensagens flash -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <script>
-                    alert("{{ category }}: {{ message }}");
-                </script>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+{% extends "base.html" %}
 
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.senha_atual.label(class="form-control-label") }}
-            {{ form.senha_atual(class="form-control") }}
-            {% for error in form.senha_atual.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
+{% set title = "Alterar Senha" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-9">
+                <h1 class="text-center">Alterar Senha</h1>
+                <!-- Seção para exibir mensagens flash -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group mt-5">
+                        {{ form.senha_atual.label(class="form-control-label") }}
+                        {{ form.senha_atual(class="form-control") }}
+                        {% for error in form.senha_atual.errors %}
+                        {% endfor %}
+                    </div>
+                    <div class="form-group mt-3">
+                        {{ form.nova_senha.label(class="form-control-label") }}
+                        {{ form.nova_senha(class="form-control") }}
+                        {% for error in form.nova_senha.errors %}
+                        {% endfor %}
+                    </div>
+                    <div class="form-group mt-3">
+                        {{ form.confirmar_nova_senha.label(class="form-control-label") }}
+                        {{ form.confirmar_nova_senha(class="form-control") }}
+                        {% for error in form.confirmar_nova_senha.errors %}
+                        {% endfor %}
+                    </div>
+                    <div class="form-group mt-5 d-flex">
+                        <button type="submit" class="btn btn-primary flex-grow-1 mr-2 py-3">Alterar Senha</button>
+                    </div>                    
+                </form>
+                <a href="/" class="btn btn-secondary btn-block">MENU</a>
+            </div>
         </div>
-        <div class="form-group">
-            {{ form.nova_senha.label(class="form-control-label") }}
-            {{ form.nova_senha(class="form-control") }}
-            {% for error in form.nova_senha.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div class="form-group">
-            {{ form.confirmar_nova_senha.label(class="form-control-label") }}
-            {{ form.confirmar_nova_senha(class="form-control") }}
-            {% for error in form.confirmar_nova_senha.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <button type="submit" class="btn btn-primary">Alterar Senha</button>
-    </form>
-    <br>
-    <hr><br>
-    <a href="/"><button>Voltar ao menu</button></a>
-</body>
-</html>
+    </div>
+{% endblock %}
