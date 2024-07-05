@@ -2,8 +2,7 @@ from flask import render_template, request
 from Recebimento import app, db
 from flask_login import login_required
 from Recebimento.models import NotaFiscal, Filial, Centro, RegistroRecebimento, Responsavel
-from sqlalchemy import and_, func
-from sqlalchemy.sql import label
+from sqlalchemy import desc, and_, func
 
 @app.route('/tabela-responsaveis')
 @login_required
@@ -29,19 +28,27 @@ def table_centros():
     centros = Centro.query.paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/centro.html', centros=centros)
 
-@app.route('/tabela-all-registros')
+@app.route('/tabela-registros', methods=['POST'])
 @login_required
-def table_registros_all():
+def table_registros_id():
+    nota_fiscal_id = request.form.get('nota_fiscal_id')
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 3, type=int)
-    registros = RegistroRecebimento.query.paginate(page=page, per_page=per_page, error_out=False)
-    return render_template('/tables/all_registros.html', registros=registros)
+    per_page = request.args.get('per_page', 10, type=int)
+
+    # Consulta o registro específico para obter a chave de acesso
+    registro = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).first()
+    chave_acesso = registro.nota_fiscal.chave_acesso if registro else None
+
+    # Filtra e ordena os registros pelo ID da nota fiscal e pela data de atualização
+    registros = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).order_by(desc(RegistroRecebimento.data_atualizacao)).paginate(page=page, per_page=per_page, error_out=False)
+
+    return render_template('/tables/registros_chave.html', registros=registros, nota_fiscal_id=nota_fiscal_id, chave_acesso=chave_acesso)
 
 @app.route('/tabela-last-registros')
 @login_required
 def table_registros_last():
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 3, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
 
     # Subconsulta para encontrar o maior id para cada nota fiscal
     subquery = db.session.query(RegistroRecebimento.nota_fiscal_id, func.max(RegistroRecebimento.id).label('max_id')).group_by(RegistroRecebimento.nota_fiscal_id).subquery('t')
