@@ -25,8 +25,10 @@ def cadastro_chaveacesso():
         elif action == 'estorno':
             return handle_estorno(form)
         else:
-            flash("Não foi possível encontrar a rota solicitada.", "Erro:")
+            flash("Não foi possível encontrar a rota solicitada.", "danger")
     elif form.errors:
-        flash(form.errors, "Erros:")
+        for campo, erros in form.errors.items():
+            for erro in erros:
+                flash(f'{campo.upper()}: {erro}', 'warning')
 
     return render_template('/partials/index.html', form=form, filiais_por_responsavel=filiais_por_responsavel)

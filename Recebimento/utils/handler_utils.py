@@ -10,7 +10,7 @@ def handle_recebimento(form):
     if not nota_fiscal_exists(form.chave_acesso.data) or (last_status and last_status.status=="Estornado"):
         return redirect('/cadastro/recebimento')
     else:
-        flash("A chave de acesso já está cadastrada ou o último status não é 'Estornado'.", "Erro:")
+        flash("A chave de acesso já está cadastrada ou o último status não é 'Estornado'.", "warning")
         return redirect('/')
 
 def handle_mudar_status(form):
@@ -18,7 +18,7 @@ def handle_mudar_status(form):
     if nota_fiscal_exists(form.chave_acesso.data) and (last_status and last_status.status!="Estornado"):
         return redirect('/mudar-status')
     else:
-        flash("A chave de acesso não está cadastrada ou o último status é 'Estornado'.", "Erro:")
+        flash("A chave de acesso não está cadastrada ou o último status é 'Estornado'.", "warning")
         return redirect('/')
 
 def handle_estorno(form):
@@ -26,5 +26,5 @@ def handle_estorno(form):
     if nota_fiscal_exists(form.chave_acesso.data) and (last_status and last_status.status!="Estornado"):
         return redirect('/estorno')
     else:
-        flash("A chave de acesso não está cadastrada ou o último status é 'Estornado'.", "Erro:")
+        flash("A chave de acesso não está cadastrada ou o último status é 'Estornado'.", "warning")
         return redirect('/')
