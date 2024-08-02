@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,26 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <title>{{ title }}</title>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="/">Recebimento</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item dropdown {% if request.path.startswith('/tabela-all') or request.path.startswith('/tabela-last') %}active{% endif %}">
-                        <a class="nav-link" href="/tabela-last-registros" role="button" data-toggle="" aria-haspopup="true">Registros</a>
+                    <li
+                        class="nav-item dropdown {% if request.path.startswith('/tabela-all') or request.path.startswith('/tabela-last') %}active{% endif %}">
+                        <a class="nav-link" href="/tabela-last-registros" role="button" data-toggle=""
+                            aria-haspopup="true">Registros</a>
                     </li>
-                    <li class="nav-item dropdown {% if request.path.startswith('/tabela-res') or request.path.startswith('/tabela-fil') or request.path.startswith('/tabela-cen') %}active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tabelas</a>
+                    <li
+                        class="nav-item dropdown {% if request.path.startswith('/tabela-res') or request.path.startswith('/tabela-fil') or request.path.startswith('/tabela-cen') %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tabelas</a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/tabela-responsaveis">Responsáveis</a>
                             <a class="dropdown-item" href="/tabela-filiais">Filiais</a>
@@ -31,22 +38,25 @@
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown {% if request.path.startswith('/cadastro') %}active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Cadastrar</a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/cadastro/responsavel">Responsáveis</a>
                             <a class="dropdown-item" href="/cadastro/filiais">Filiais</a>
                             <a class="dropdown-item" href="/cadastro/centros">Centros</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown {% if request.path.startswith('/alteracao_senha') or request.path.startswith('/logout') %}active{% endif %}">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Meu perfil</a>
+                    <li
+                        class="nav-item dropdown {% if request.path.startswith('/alteracao_senha') or request.path.startswith('/logout') %}active{% endif %}">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Meu perfil</a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="/alteracao_senha">Alterar senha</a>
                             <a class="dropdown-item" href="/logout">Logout</a>
                         </div>
-                    </li>                    
+                    </li>
                 </ul>
-                
+
             </div>
         </nav>
     </header>
@@ -64,4 +74,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
+
 </html>

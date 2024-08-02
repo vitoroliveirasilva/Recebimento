@@ -3,34 +3,35 @@
 {% set title = "Registros Filtrados" %}
 
 {% block content %}
-    <div class="container-registros">
-        <h1 class="text-center">HISTÓRICO - <a href="/chave_acesso/{{ registros[0].nota_fiscal.id }}">{{ registros[0].nota_fiscal.chave_acesso }}</a>
-        </h1>
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Data recebimento</th>
-                        <th>Status</th>
-                        <th>Data guarda</th>
-                        <th>Prioridade</th>
-                        <th>Responsável</th>
-                        <th>Data atualização</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for registro in registros %}
-                    <tr>
-                        <td>{{ registro.data_recebimento.strftime("%d/%m/%Y %H:%M") }}h</td>
-                        <td>{{ registro.status }}</td>
-                        <td>{{ registro.data_guarda.strftime("%d/%m/%Y") if registro.data_guarda is not none else "" }}</td>
-                        <td>{{ "Sim" if registro.prioridade else "Não" }}</td>
-                        <td>{{ registro.responsavel.nome }}</td>
-                        <td>{{ registro.data_atualizacao.strftime("%d/%m/%Y %H:%M") }}h</td>
-                    </tr>                    
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+<div class="container-registros">
+    <h1 class="text-center">HISTÓRICO - <a
+            href="/chave_acesso/{{ registros[0].nota_fiscal.id }}">{{ registros[0].nota_fiscal.chave_acesso }}</a>
+    </h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Data recebimento</th>
+                    <th>Status</th>
+                    <th>Data guarda</th>
+                    <th>Prioridade</th>
+                    <th>Responsável</th>
+                    <th>Data atualização</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                <tr>
+                    <td>{{ registro.data_recebimento.strftime("%d/%m/%Y %H:%M") }}h</td>
+                    <td>{{ registro.status }}</td>
+                    <td>{{ registro.data_guarda.strftime("%d/%m/%Y") if registro.data_guarda is not none else "" }}</td>
+                    <td>{{ "Sim" if registro.prioridade else "Não" }}</td>
+                    <td>{{ registro.responsavel.nome }}</td>
+                    <td>{{ registro.data_atualizacao.strftime("%d/%m/%Y %H:%M") }}h</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+</div>
 {% endblock %}

@@ -3,33 +3,34 @@
 {% set title = "Editar Filial" %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="form-group text-center mt-4">Editar Filial</h1>
+<div class="container">
+    <h1 class="form-group text-center mt-4">Editar Filial</h1>
 
-        <!-- Seção para exibir mensagens flash -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" value="{{ filial.nome }}" required>
-            </div>
-            <div class="form-group mt-2 d-flex">
-                <button type="submit" class="btn btn-primary flex-grow-1 py-2" style="text-transform: uppercase;">Atualizar</button>
-            </div>
-        </form>
-        <a href="/tabela-filiais" class="btn btn-secondary btn-block mt-3">Voltar</a>
+    <!-- Seção para exibir mensagens flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
     </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" name="nome" value="{{ filial.nome }}" required>
+        </div>
+        <div class="form-group mt-2 d-flex">
+            <button type="submit" class="btn btn-primary flex-grow-1 py-2"
+                style="text-transform: uppercase;">Atualizar</button>
+        </div>
+    </form>
+    <a href="/tabela-filiais" class="btn btn-secondary btn-block mt-3">Voltar</a>
+</div>
 {% endblock %}

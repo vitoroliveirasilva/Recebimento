@@ -3,93 +3,98 @@
 {% set title = "Editar Responsável" %}
 
 {% block content %}
-    <style>
-        .large {
-            transform: scale(1.5);
-        }
-        .large-label {
-            font-size: 1em;
-            margin-left: 12px;
-        }
-    </style>
-    <div class="container">
-        <h1 class="form-group text-center mt-4">Editar Responsável</h1>
+<style>
+    .large {
+        transform: scale(1.5);
+    }
 
-        <!-- Seção para exibir mensagens flash -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.nome.label }} {{ form.nome(size=32, class="form-control", value=responsavel.nome) }}
-            </div>
-            <div class="form-group">
-                {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control", value=responsavel.usuario) }}
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input large" type="checkbox" id="alterar_senha" name="alterar_senha" {% if form.alterar_senha.data %}checked{% endif %}>
-                    <label class="form-check-label large-label" for="alterar_senha">
-                        {{ form.alterar_senha.label.text }}
-                    </label>
-                </div>
-            </div>
-            
-            <div class="form-group" id="senha_fields" style="display:none;">
-                {{ form.nova_senha.label }} {{ form.nova_senha(class="form-control") }}
-                {{ form.confirm_nova_senha.label }} {{ form.confirm_nova_senha(class="form-control") }}
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input large" type="checkbox" id="permissao" name="permissao" {% if responsavel.permissao %}checked{% endif %} value="true">
-                    <label class="form-check-label large-label" for="permissao">
-                        Administrador
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input large" type="checkbox" id="ativo" name="ativo" {% if responsavel.ativo %}checked{% endif %} value="true">
-                    <label class="form-check-label large-label" for="ativo">
-                        Ativo
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Filiais:</label><br>
-                {% for filial in filiais %}
-                <div class="form-check">
-                    <input class="form-check-input large" type="checkbox" id="filial_{{ filial[0] }}" name="filiais" value="{{ filial[0] }}"
-                           {% if filial[0] in filiais_associadas %} checked {% endif %}>
-                    <label class="form-check-label large-label" for="filial_{{ filial[0] }}">{{ filial[1] }}</label>
-                </div>
-                {% endfor %}
-            </div>                                            
-            <div class="form-group mt-2 d-flex">
-                <button type="submit" class="btn btn-primary flex-grow-1 py-2" style="text-transform: uppercase;">Atualizar</button>
-            </div>
-        </form>
-        <a href="/tabela-responsaveis" class="btn btn-secondary btn-block mt-3">Voltar ao menu</a>
+    .large-label {
+        font-size: 1em;
+        margin-left: 12px;
+    }
+</style>
+<div class="container">
+    <h1 class="form-group text-center mt-4">Editar Responsável</h1>
+
+    <!-- Seção para exibir mensagens flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
     </div>
-    <script>
-        document.getElementById('alterar_senha').addEventListener('change', function() {
-            var senhaFields = document.getElementById('senha_fields');
-            if (this.checked) {
-                senhaFields.style.display = 'block';
-            } else {
-                senhaFields.style.display = 'none';
-            }
-        });
-    </script>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.nome.label }} {{ form.nome(size=32, class="form-control", value=responsavel.nome) }}
+        </div>
+        <div class="form-group">
+            {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control", value=responsavel.usuario) }}
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input large" type="checkbox" id="alterar_senha" name="alterar_senha"
+                    {% if form.alterar_senha.data %}checked{% endif %}>
+                <label class="form-check-label large-label" for="alterar_senha">
+                    {{ form.alterar_senha.label.text }}
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group" id="senha_fields" style="display:none;">
+            {{ form.nova_senha.label }} {{ form.nova_senha(class="form-control") }}
+            {{ form.confirm_nova_senha.label }} {{ form.confirm_nova_senha(class="form-control") }}
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input large" type="checkbox" id="permissao" name="permissao"
+                    {% if responsavel.permissao %}checked{% endif %} value="true">
+                <label class="form-check-label large-label" for="permissao">
+                    Administrador
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input large" type="checkbox" id="ativo" name="ativo"
+                    {% if responsavel.ativo %}checked{% endif %} value="true">
+                <label class="form-check-label large-label" for="ativo">
+                    Ativo
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Filiais:</label><br>
+            {% for filial in filiais %}
+            <div class="form-check">
+                <input class="form-check-input large" type="checkbox" id="filial_{{ filial[0] }}" name="filiais"
+                    value="{{ filial[0] }}" {% if filial[0] in filiais_associadas %} checked {% endif %}>
+                <label class="form-check-label large-label" for="filial_{{ filial[0] }}">{{ filial[1] }}</label>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="form-group mt-2 d-flex">
+            <button type="submit" class="btn btn-primary flex-grow-1 py-2"
+                style="text-transform: uppercase;">Atualizar</button>
+        </div>
+    </form>
+    <a href="/tabela-responsaveis" class="btn btn-secondary btn-block mt-3">Voltar ao menu</a>
+</div>
+<script>
+    document.getElementById('alterar_senha').addEventListener('change', function () {
+        var senhaFields = document.getElementById('senha_fields');
+        if (this.checked) {
+            senhaFields.style.display = 'block';
+        } else {
+            senhaFields.style.display = 'none';
+        }
+    });
+</script>
 {% endblock %}

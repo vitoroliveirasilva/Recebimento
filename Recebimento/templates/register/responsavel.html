@@ -3,84 +3,89 @@
 {% set title = "Cadastrar Responsável" %}
 
 {% block content %}
-    <style>
-        .large {
-            transform: scale(1.5);
-        }
-        .large-label {
-            font-size: 1em;
-            margin-left: 12px;
-        }
-    </style>
-    <div class="container">
-        <h1 class="form-group text-center mt-4">Cadastrar Responsável</h1>
-        
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.nome.label }} {{ form.nome(size=32, class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.senha.label }} {{ form.senha(class="form-control") }}
-            </div>
-            <div class="form-group">
-                {{ form.confirm_senha.label }} {{ form.confirm_senha(class="form-control") }}
-            </div>
-            <div class="form-group">
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input large" type="checkbox" id="permissao" name="permissao" {% if form.permissao.data %}checked{% endif %} value="true">
-                        <label class="form-check-label large-label" for="permissao">
-                            Administrador
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input large" type="checkbox" id="ativo" name="ativo" {% if form.ativo.data %}checked{% endif %} value="true">
-                        <label class="form-check-label large-label" for="ativo">
-                            Ativo
-                        </label>
-                    </div>
-                </div>
-            </div>                     
-            <div class="form-group">
-                <label>Filiais:</label><br>
-                <div class="row">
-                    {% for filial in form.filiais.choices %}
-                        <div class="col-sm-4">
-                            <div class="form-check" style="margin-left: 8px;">
-                                <input class="form-check-input large" type="checkbox" name="filiais" id="filial_{{ filial[0] }}" value="{{ filial[0] }}">
-                                <label class="form-check-label large-label" for="filial_{{ filial[0] }}">
-                                    {{ filial[1] }}
-                                </label>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-            
+<style>
+    .large {
+        transform: scale(1.5);
+    }
 
-            <!-- Seção para exibir mensagens flash -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            <div class="form-group mt-5 d-flex">
-                <button type="submit" class="btn btn-primary flex-grow-1 py-2" style="text-transform: uppercase;">Registrar</button>
+    .large-label {
+        font-size: 1em;
+        margin-left: 12px;
+    }
+</style>
+<div class="container">
+    <h1 class="form-group text-center mt-4">Cadastrar Responsável</h1>
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.nome.label }} {{ form.nome(size=32, class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.senha.label }} {{ form.senha(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.confirm_senha.label }} {{ form.confirm_senha(class="form-control") }}
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input large" type="checkbox" id="permissao" name="permissao"
+                        {% if form.permissao.data %}checked{% endif %} value="true">
+                    <label class="form-check-label large-label" for="permissao">
+                        Administrador
+                    </label>
+                </div>
             </div>
-        </form>
-        <a href="/" class="btn btn-secondary btn-block">MENU</a>
-    </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input large" type="checkbox" id="ativo" name="ativo"
+                        {% if form.ativo.data %}checked{% endif %} value="true">
+                    <label class="form-check-label large-label" for="ativo">
+                        Ativo
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Filiais:</label><br>
+            <div class="row">
+                {% for filial in form.filiais.choices %}
+                <div class="col-sm-4">
+                    <div class="form-check" style="margin-left: 8px;">
+                        <input class="form-check-input large" type="checkbox" name="filiais" id="filial_{{ filial[0] }}"
+                            value="{{ filial[0] }}">
+                        <label class="form-check-label large-label" for="filial_{{ filial[0] }}">
+                            {{ filial[1] }}
+                        </label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <div class="form-group mt-5 d-flex">
+            <button type="submit" class="btn btn-primary flex-grow-1 py-2"
+                style="text-transform: uppercase;">Registrar</button>
+        </div>
+    </form>
+    <a href="/" class="btn btn-secondary btn-block">MENU</a>
+</div>
 {% endblock %}

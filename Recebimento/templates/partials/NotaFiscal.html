@@ -3,45 +3,45 @@
 {% set title = "Nota Fiscal" %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="mt-4 mb-4">Nota fiscal</h1>
+<div class="container">
+    <h1 class="mt-4 mb-4">Nota fiscal</h1>
 
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>ID</th>
-                        <th>Chave de acesso</th>
-                        <th>CNPJ</th>
-                        <th>NF</th>
-                        <th>Código CTE</th>
-                        <th>Volumes</th>
-                        <th>Filial</th>
-                        <th>Centro</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for nf in nfs %}
-                    <tr>
-                        <td>{{ nf.id }}</td>
-                        <td>{{ nf.chave_acesso }}</td>
-                        <td>{{ nf.filial.cnpj }}</td>
-                        <td>{{ nf.nf }}</td>
-                        <td>{{ nf.codigo_cte }}</td>
-                        <td>{{ nf.volumes }}</td>
-                        <td>{{ nf.filial.nome }}</td>
-                        <td>{{ nf.centro.nome }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <button class="btn btn-primary btn-block" onclick="goBack()">VOLTAR</button>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Chave de acesso</th>
+                    <th>CNPJ</th>
+                    <th>NF</th>
+                    <th>Código CTE</th>
+                    <th>Volumes</th>
+                    <th>Filial</th>
+                    <th>Centro</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for nf in nfs %}
+                <tr>
+                    <td>{{ nf.id }}</td>
+                    <td>{{ nf.chave_acesso }}</td>
+                    <td>{{ nf.filial.cnpj }}</td>
+                    <td>{{ nf.nf }}</td>
+                    <td>{{ nf.codigo_cte }}</td>
+                    <td>{{ nf.volumes }}</td>
+                    <td>{{ nf.filial.nome }}</td>
+                    <td>{{ nf.centro.nome }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button class="btn btn-primary btn-block" onclick="goBack()">VOLTAR</button>
     </div>
+</div>
 
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 {% endblock %}

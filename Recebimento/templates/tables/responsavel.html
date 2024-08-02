@@ -3,67 +3,70 @@
 {% set title = "Registros - reponsáveis" %}
 
 {% block content %}
-        <div class="container">
-            <!-- Seção para exibir mensagens flash -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    {% for category, message in messages %}
-                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-            
-            <h1 class="text-center">RESPONSÁVEIS</h1>
-            <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Ativo</th>
-                                    <th>Usuário</th>
-                                    <th>Permissão</th>
-                                    <th>Editar</th>
-                                    <th>Excluir</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for responsavel in responsaveis %}
-                                <tr>
-                                    <td>{{ responsavel.nome }}</td>
-                                    <td>{{ "Sim" if responsavel.ativo else "Não" }}</td>
-                                    <td>{{ responsavel.usuario }}</td>
-                                    <td>{{ "Administrador" if responsavel.permissao else "Usuário" }}</td>
-                                    <td>
-                                        <form method="POST" action="/editar_responsavel/{{ responsavel.id }}">
-                                            <input type="submit" value="Editar" class="btn btn-warning">
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form method="POST" action="/excluir_responsavel/{{ responsavel.id }}">
-                                            <input type="submit" value="Excluir" class="btn btn-danger">
-                                        </form>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            {% if responsaveis.has_prev %}
-                                <li class="page-item"><a class="page-link" href="{{ url_for('table_responsaveis', page=responsaveis.prev_num) }}">Anterior</a></li>
-                            {% endif %}
-                            <li class="page-item disabled"><a class="page-link" href="#">Página {{ responsaveis.page }} de {{ responsaveis.pages }}</a></li>
-                            {% if responsaveis.has_next %}
-                                <li class="page-item"><a class="page-link" href="{{ url_for('table_responsaveis', page=responsaveis.next_num) }}">Próxima</a></li>
-                            {% endif %}
-                        </ul>
-                    </nav>
-                </div>
+<div class="container">
+    <!-- Seção para exibir mensagens flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
     </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <h1 class="text-center">RESPONSÁVEIS</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Ativo</th>
+                    <th>Usuário</th>
+                    <th>Permissão</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for responsavel in responsaveis %}
+                <tr>
+                    <td>{{ responsavel.nome }}</td>
+                    <td>{{ "Sim" if responsavel.ativo else "Não" }}</td>
+                    <td>{{ responsavel.usuario }}</td>
+                    <td>{{ "Administrador" if responsavel.permissao else "Usuário" }}</td>
+                    <td>
+                        <form method="POST" action="/editar_responsavel/{{ responsavel.id }}">
+                            <input type="submit" value="Editar" class="btn btn-warning">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="POST" action="/excluir_responsavel/{{ responsavel.id }}">
+                            <input type="submit" value="Excluir" class="btn btn-danger">
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            {% if responsaveis.has_prev %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('table_responsaveis', page=responsaveis.prev_num) }}">Anterior</a></li>
+            {% endif %}
+            <li class="page-item disabled"><a class="page-link" href="#">Página {{ responsaveis.page }} de
+                    {{ responsaveis.pages }}</a></li>
+            {% if responsaveis.has_next %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ url_for('table_responsaveis', page=responsaveis.next_num) }}">Próxima</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+</div>
 {% endblock %}
