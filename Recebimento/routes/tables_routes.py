@@ -33,7 +33,7 @@ def table_centros():
 def table_registros_id():
     nota_fiscal_id = request.form.get('nota_fiscal_id')
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
+    per_page = request.args.get('per_page', 5, type=int)
 
     # Consulta o registro específico para obter a chave de acesso
     registro = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).first()
@@ -48,7 +48,7 @@ def table_registros_id():
 @login_required
 def table_registros_last():
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
+    per_page = request.args.get('per_page', 5, type=int)
 
     # Subconsulta para encontrar o maior id para cada nota fiscal
     subquery = db.session.query(RegistroRecebimento.nota_fiscal_id, func.max(RegistroRecebimento.id).label('max_id')).group_by(RegistroRecebimento.nota_fiscal_id).subquery('t')
