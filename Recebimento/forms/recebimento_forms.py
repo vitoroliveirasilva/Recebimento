@@ -6,7 +6,6 @@ from Recebimento.utils import STATUS_CHOICES
 
 class ChaveAcessoForm(FlaskForm):
     chave_acesso = StringField('chave_acesso', validators=[DataRequired(), Length(min=40, max=46), Regexp('^\d{40,46}$', message="A chave de acesso deve ser composta apenas por números")])
-
     filial = SelectField('filial', coerce=int, choices=[], validators=[DataRequired()])
 
 class RecebimentoForm(FlaskForm):

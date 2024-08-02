@@ -23,11 +23,13 @@ def cadastro_recebimento():
                 delete_session()
                 return redirect('/')
             else:
-                flash("Esta chave de acesso já está cadastrada.", 'error')
+                flash("Esta chave de acesso já está cadastrada.", 'danger')
                 return redirect('/')
         except ValueError as e:
-            flash(str(e), 'error')
+            flash(str(e), 'danger')
     elif form.errors:
-        flash(form.errors, 'error')
+        for campo, erros in form.errors.items():
+            for erro in erros:
+                flash(f'{campo.upper()}: {erro}', 'warning')
 
     return render_template('/logic/recebimento.html', form=form, nf=extrai_nf(chave_acesso))
