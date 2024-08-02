@@ -1,10 +1,12 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField, IntegerField, BooleanField
-from wtforms.validators import DataRequired, Length, Optional,NumberRange
+from wtforms.validators import DataRequired, Length, Optional, NumberRange, Regexp
+from Recebimento.utils import STATUS_CHOICES
 
 
 class ChaveAcessoForm(FlaskForm):
-    chave_acesso = StringField('chave_acesso', validators=[DataRequired(), Length(min=40, max=46)])
+    chave_acesso = StringField('chave_acesso', validators=[DataRequired(), Length(min=40, max=46), Regexp('^\d{40,46}$', message="A chave de acesso deve ser composta apenas por números")])
+
     filial = SelectField('filial', coerce=int, choices=[], validators=[DataRequired()])
 
 class RecebimentoForm(FlaskForm):
@@ -20,14 +22,7 @@ class RecebimentoForm(FlaskForm):
 
 class MudarStatusForm(FlaskForm):
     responsavel = SelectField('responsavel', coerce=int, choices=[], validators=[DataRequired()])
-    status = SelectField('status', choices=[
-        ("Pendência almoxarifado", "Pendência almoxarifado"),
-        ("Aguardando ajuste", "Aguardando ajuste"),
-        ("Aguardando fiscal", "Aguardando fiscal"),
-        ("Aguardando lançamento de CTE", "Aguardando lançamento de CTE"),
-        ("NF cancelada", "NF cancelada"),
-        ("NF finalizada", "NF finalizada")
-    ], validators=[DataRequired()])
+    status = SelectField('status', choices=STATUS_CHOICES, validators=[DataRequired()])
     submit = SubmitField('Registrar')
 
 class EstornoForm(FlaskForm):
