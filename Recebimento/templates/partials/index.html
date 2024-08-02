@@ -3,10 +3,8 @@
 {% set title = "Registrar NFe" %}
 
 {% block content %}
-    <div class="container">
-        <div class="row justify-content-center mt-5">
-            <div class="col-md-9">
-                <h1 class="text-center">Registrar NFe</h1>
+    <div class="container-home">
+        <h1 class="text-center">Registrar NFe</h1>
                 <!-- Seção para exibir mensagens flash -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -23,11 +21,11 @@
 
                 <form method="POST">
                     {{ form.csrf_token }}
-                    <div class="form-group mt-5">
+                    <div class="form-group">
                         <label for="chave_acesso">Chave de acesso:</label>
                         {{ form.chave_acesso(class="form-control", placeholder="Insira a chave de acesso") }}
                     </div>
-                    <div class="form-group mt-3">
+                    <div class="form-group">
                         <label for="filial_id">Filial:</label>
                         <select name="filial" class="form-control" required>
                             <option selected disabled value="">Selecione a filial</option>
@@ -38,14 +36,11 @@
                             {% endfor %}
                         </select>
                     </div>
-                    <div class="form-group mt-5 d-flex">
+                    <div class="options-logic mt-5 d-flex">
                         <button type="submit" name="action" value="recebimento" class="btn btn-primary flex-grow-1 mr-2 py-3">RECEBIMENTO</button>
                         <button type="submit" name="action" value="mudar status" class="btn btn-primary flex-grow-1 mx-2 py-3">MUDAR STATUS</button>
-                        <button type="submit" name="action" value="estorno" class="btn btn-primary flex-grow-1 ml-2 py-3">ESTORNO</button>
-                    </div>                    
+                        <button type="submit" name="action" value="estorno" class="btn btn-primary flex-grow-1 ml-2 py-3">ESTORNO</button>  
+                    </div>            
                 </form>
-                
-            </div>
-        </div>
     </div>
 {% endblock %}

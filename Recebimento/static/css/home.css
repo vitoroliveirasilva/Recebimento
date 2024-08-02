@@ -1,0 +1,71 @@
+.container-home {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.container-home form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.form-group {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.options-logic {
+    display: flex;
+    width: 50%;
+    flex-direction: row;
+}
+
+.form-group label {
+    display: flex;
+    align-items: left;
+    font-size: 1.2rem;
+}
+
+.form-group input[type='text'] {
+    display: flex;
+    text-align: left;
+    height: 3rem;
+    font-size: 1.3rem;
+}
+
+.form-group select {
+    display: flex;
+    text-align: left;
+    height: 3rem;
+    font-size: 1.3rem;
+}
+
+.options-logic {
+    display: flex;
+    flex-direction: row;
+    max-width: 50%;
+}
+
+.options-logic button {
+    font-size: 1.3rem;
+    font-weight: bold;
+    box-shadow: 0px 0px 12px 4px rgba(0, 0, 0, .1);
+    transition: all .3s ease;
+}
+
+.options-logic button:hover {
+    font-size: 1.4rem;
+    box-shadow: 0px 0px 12px 6px rgba(0, 0, 0, .1);
+}

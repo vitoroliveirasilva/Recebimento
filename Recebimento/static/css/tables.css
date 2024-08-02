@@ -39,10 +39,6 @@
     gap: 3rem;
 }
 
-.container h1 {
-    font-weight: 600;
-}
-
 thead tr th {
     text-transform: uppercase;
     font-size: 1.2rem;

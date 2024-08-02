@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('tables.css');
+@import url('home.css');
 
 * {
     font-family: 'Exo 2', sans-serif;
@@ -29,6 +30,10 @@ main {
     justify-content: center;
     width: 100%;
     min-height: calc(98vh - (45px + 56px));
+}
+
+h1 {
+    font-weight: 600;
 }
 
 input[type=submit] {
