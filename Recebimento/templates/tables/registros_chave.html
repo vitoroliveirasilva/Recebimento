@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="container-registros">
-        <h1 class="text-center" style="padding-bottom: 4vh;">HISTÓRICO - CHAVE DE ACESSO<br><a href="/chave_acesso/{{ registros.items[0].nota_fiscal.id }}">{{ registros.items[0].nota_fiscal.chave_acesso }}</a>
+        <h1 class="text-center">HISTÓRICO - <a href="/chave_acesso/{{ registros[0].nota_fiscal.id }}">{{ registros[0].nota_fiscal.chave_acesso }}</a>
         </h1>
         <div class="table-responsive">
             <table class="table table-striped">
@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for registro in registros.items %}
+                    {% for registro in registros %}
                     <tr>
                         <td>{{ registro.data_recebimento.strftime("%d/%m/%Y %H:%M") }}h</td>
                         <td>{{ registro.status }}</td>
@@ -32,16 +32,5 @@
                 </tbody>
             </table>
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-                {% if registros.has_prev %}
-                    <li class="page-item"><a class="page-link" href="{{ url_for('table_registros_id', page=registros.prev_num, nota_fiscal_id=nota_fiscal_id) }}">Anterior</a></li>
-                {% endif %}
-                <li class="page-item disabled"><a class="page-link" href="#">Página {{ registros.page }} de {{ registros.pages }}</a></li>
-                {% if registros.has_next %}
-                    <li class="page-item"><a class="page-link" href="{{ url_for('table_registros_id', page=registros.next_num, nota_fiscal_id=nota_fiscal_id) }}">Próxima</a></li>
-                {% endif %}
-            </ul>
-        </nav>
     </div>
 {% endblock %}

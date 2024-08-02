@@ -32,15 +32,13 @@ def table_centros():
 @login_required
 def table_registros_id():
     nota_fiscal_id = request.form.get('nota_fiscal_id')
-    page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 5, type=int)
 
     # Consulta o registro específico para obter a chave de acesso
     registro = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).first()
     chave_acesso = registro.nota_fiscal.chave_acesso if registro else None
 
     # Filtra e ordena os registros pelo ID da nota fiscal e pela data de atualização
-    registros = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).order_by(desc(RegistroRecebimento.data_atualizacao)).paginate(page=page, per_page=per_page, error_out=False)
+    registros = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).order_by(desc(RegistroRecebimento.data_atualizacao)).all()
 
     return render_template('/tables/registros_chave.html', registros=registros, nota_fiscal_id=nota_fiscal_id, chave_acesso=chave_acesso)
 
