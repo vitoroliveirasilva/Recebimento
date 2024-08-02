@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('tables.css');
 @import url('home.css');
+@import url('recebimento.css');
 
 * {
     font-family: 'Exo 2', sans-serif;
@@ -45,4 +46,23 @@ input[type=submit] {
 
 input[type=submit]:hover {
     font-size: 1.1rem;
+}
+
+.form-group {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.form-group label {
+    display: flex;
+    align-items: left;
+    font-size: 1.2rem;
+}
+
+.form-group input[type='text'], input[type='number'] {
+    display: flex;
+    text-align: left;
+    height: 3rem;
+    font-size: 1.3rem;
 }

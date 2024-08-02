@@ -20,29 +20,10 @@
     gap: .5rem;
 }
 
-.form-group {
-    display: flex;
-    width: 50%;
-    flex-direction: column;
-}
-
 .options-logic {
     display: flex;
     width: 50%;
     flex-direction: row;
-}
-
-.form-group label {
-    display: flex;
-    align-items: left;
-    font-size: 1.2rem;
-}
-
-.form-group input[type='text'] {
-    display: flex;
-    text-align: left;
-    height: 3rem;
-    font-size: 1.3rem;
 }
 
 .form-group select {
