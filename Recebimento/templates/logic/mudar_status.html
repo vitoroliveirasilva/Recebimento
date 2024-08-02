@@ -4,9 +4,8 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="form-group text-center mt-4">Mudar status - NF {{ nf }}</h1>
-    <div class="row justify-content-center">
-        <div class="col-sm-12 col-md-8 col-lg-8">
+    <h1 class="text-center">Mudar status - NF {{ nf }}</h1>
+    <div class="container-home">
             <!-- Seção para exibir mensagens flash -->
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
@@ -44,8 +43,5 @@
                         style="text-transform: uppercase;">Registrar</button>
                 </div>
             </form>
-            <a href="/" class="btn btn-secondary btn-block mt-3"">Voltar</a>
-            </div>
-        </div>
     </div>
 {% endblock %}

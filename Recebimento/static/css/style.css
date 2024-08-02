@@ -35,6 +35,7 @@ main {
 
 h1 {
     font-weight: 600;
+    text-transform: uppercase;
 }
 
 input[type=submit] {
@@ -65,4 +66,26 @@ input[type=submit]:hover {
     text-align: left;
     height: 3rem;
     font-size: 1.3rem;
+}
+
+.container-home {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.container-home form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    gap: .5rem;
 }

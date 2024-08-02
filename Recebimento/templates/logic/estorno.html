@@ -4,37 +4,34 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="form-group text-center mt-4">Estorno - NF {{ nf }}</h1>
-    <div class="row justify-content-center mt-5">
-        <div class="col-sm-12 col-md-8 col-lg-6">
-            <!-- Seção para exibir mensagens flash -->
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-
-            <form method="POST">
-                {{ form.csrf_token }}
-                {{ form.hidden_tag() }}
-                <div class="form-group">
-                    <label for="responsavel">Responsável:</label>
-                    {{ form.responsavel(class="form-control", required=True) }}
-                </div>
-                <div class="form-group mt-5 d-flex">
-                    <button type="submit" class="btn btn-primary flex-grow-1 py-2"
-                        style="text-transform: uppercase;">Registrar</button>
-                </div>
-            </form>
-            <a href="/" class="btn btn-secondary btn-block mt-4"">Voltar</a>
-            </div>
+    <h1 class="text-center">Estorno - NF {{ nf }}</h1>
+    <div class="container-recebimento">
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
         </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            {{ form.csrf_token }}
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="responsavel">Responsável:</label>
+                {{ form.responsavel(class="form-control", required=True) }}
+            </div>
+            <div class="form-group mt-5 d-flex">
+                <button type="submit" class="btn btn-primary flex-grow-1 py-2"
+                    style="text-transform: uppercase;">Registrar</button>
+            </div>
+        </form>
     </div>
+</div>
 {% endblock %}

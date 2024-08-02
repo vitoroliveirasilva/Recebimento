@@ -12,7 +12,6 @@ def register_responsavel():
     form = CadastroResponsavelForm()
     form.filiais.choices = [(filial.id, filial.nome) for filial in get_filial_choices()]
     if form.validate_on_submit():
-        print("Formulário submetido")
         try:
             if not user_exists(form.nome.data):
                 responsavel = register_new_responsavel(form.data, db)
@@ -27,8 +26,6 @@ def register_responsavel():
             flash(f'Erro ao registrar o responsável: {str(e)}')
 
         return redirect('/cadastro/responsavel')
-    else:
-        print(form.errors)
     
     return render_template('/register/responsavel.html', form=form)
 
