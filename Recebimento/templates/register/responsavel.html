@@ -3,89 +3,108 @@
 {% set title = "Cadastrar Responsável" %}
 
 {% block content %}
-<style>
-    .large {
-        transform: scale(1.5);
-    }
-
-    .large-label {
-        font-size: 1em;
-        margin-left: 12px;
-    }
-</style>
 <div class="container">
-    <h1 class="form-group text-center mt-4">Cadastrar Responsável</h1>
+    <h1 class="text-center mt-5">Cadastrar Responsável</h1>
 
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.nome.label }} {{ form.nome(size=32, class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.senha.label }} {{ form.senha(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.confirm_senha.label }} {{ form.confirm_senha(class="form-control") }}
-        </div>
-        <div class="form-group">
+    <div class="container-home">
+        <form method="POST">
+            {{ form.hidden_tag() }}
             <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input large" type="checkbox" id="permissao" name="permissao"
-                        {% if form.permissao.data %}checked{% endif %} value="true">
-                    <label class="form-check-label large-label" for="permissao">
-                        Administrador
-                    </label>
-                </div>
+                {{ form.nome.label }} {{ form.nome(size=32, class="form-control") }}
             </div>
             <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input large" type="checkbox" id="ativo" name="ativo"
-                        {% if form.ativo.data %}checked{% endif %} value="true">
-                    <label class="form-check-label large-label" for="ativo">
-                        Ativo
-                    </label>
-                </div>
+                {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control") }}
             </div>
-        </div>
-        <div class="form-group">
-            <label>Filiais:</label><br>
-            <div class="row">
-                {% for filial in form.filiais.choices %}
-                <div class="col-sm-4">
-                    <div class="form-check" style="margin-left: 8px;">
-                        <input class="form-check-input large" type="checkbox" name="filiais" id="filial_{{ filial[0] }}"
-                            value="{{ filial[0] }}">
-                        <label class="form-check-label large-label" for="filial_{{ filial[0] }}">
-                            {{ filial[1] }}
-                        </label>
+            <div class="form-group">
+                {{ form.senha.label }} {{ form.senha(class="form-control") }}
+            </div>
+            <div class="form-group">
+                {{ form.confirm_senha.label }} {{ form.confirm_senha(class="form-control") }}
+            </div>
+            <div class="form-group">
+                <div class="d-flex justify-content-left">
+                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                        <div class="checkbox-wrapper-4">
+                            <input class="inp-cbx" type="checkbox" id="permissao" name="permissao"
+                                {% if form.permissao.data %}checked{% endif %} value="true">
+                            <label class="cbx" for="permissao"><span>
+                                    <svg width="12px" height="10px">
+                                        <use xlink:href="#check-4"></use>
+                                    </svg></span><span>Administrador</span></label>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
                     </div>
                 </div>
-                {% endfor %}
+                <div class="d-flex justify-content-left">
+                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                        <div class="checkbox-wrapper-4">
+                            <input class="inp-cbx" type="checkbox" id="ativo" name="ativo"
+                                {% if form.ativo.data %}checked{% endif %} value="true">
+                            <label class="cbx" for="ativo"><span>
+                                    <svg width="12px" height="10px">
+                                        <use xlink:href="#check-4"></use>
+                                    </svg></span><span>Ativo</span></label>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
+            
+            <div class="form-group">
+                <label>Filiais:</label>
+                <div class="options-filiais">
+                    <div class="d-flex flex-wrap">
+                        {% for filial in form.filiais.choices %}
+                        <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                            <div class="checkbox-wrapper-4 d-flex align-items-center">
+                                <input class="inp-cbx" type="checkbox" id="filial_{{ filial[0] }}" name="filiais" value="{{ filial[0] }}">
+                                <label class="cbx" for="filial_{{ filial[0] }}">
+                                    <span class="svg-wrapper">
+                                        <svg width="12px" height="10px">
+                                            <use xlink:href="#check-4"></use>
+                                        </svg>
+                                    </span>
+                                    <span>{{ filial[1] }}</span>
+                                </label>
+                                <svg class="inline-svg">
+                                    <symbol id="check-4" viewbox="0 0 12 10">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </symbol>
+                                </svg>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
 
-        <!-- Seção para exibir mensagens flash -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
-        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-            {{ message }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-            </button>
-        </div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <div class="form-group mt-5 d-flex">
-            <button type="submit" class="btn btn-primary flex-grow-1 py-2"
-                style="text-transform: uppercase;">Registrar</button>
-        </div>
-    </form>
-    <a href="/" class="btn btn-secondary btn-block">MENU</a>
+            <!-- Seção para exibir mensagens flash -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Registrar</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

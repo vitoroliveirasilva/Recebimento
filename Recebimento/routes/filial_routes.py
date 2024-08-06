@@ -16,7 +16,7 @@ def register_filial():
             data = form.data
             if not filial_exists(data['nome']):
                 register_new_filial(data)
-                flash('Filial registrada com sucesso.')
+                flash('Filial registrada com sucesso.', 'success')
             else:
                 flash('Erro: Filial já existe. Por favor, escolha outro nome.')
         except Exception as e:

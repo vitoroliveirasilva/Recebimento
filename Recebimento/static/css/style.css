@@ -49,6 +49,15 @@ input[type=submit]:hover {
     font-size: 1.1rem;
 }
 
+button[type=submit] {
+    text-transform: uppercase;
+    transition: font-size .3s ease;
+}
+
+button[type=submit]:hover {
+    font-size: 1.1rem;
+}
+
 .form-group {
     display: flex;
     width: 50%;
@@ -61,7 +70,7 @@ input[type=submit]:hover {
     font-size: 1.2rem;
 }
 
-.form-group input[type='text'], input[type='number'] {
+.form-group input[type='text'], input[type='number'], input[type='password'] {
     display: flex;
     text-align: left;
     height: 3rem;
