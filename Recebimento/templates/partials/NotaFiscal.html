@@ -3,45 +3,84 @@
 {% set title = "Nota Fiscal" %}
 
 {% block content %}
-<div class="container">
-    <h1 class="mt-4 mb-4">Nota fiscal</h1>
+<div class="container-nf">
+    <h1 class="text-center my-4">Nota Fiscal</h1>
 
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead class="thead-dark">
-                <tr>
-                    <th>ID</th>
-                    <th>Chave de acesso</th>
-                    <th>CNPJ</th>
-                    <th>NF</th>
-                    <th>Código CTE</th>
-                    <th>Volumes</th>
-                    <th>Filial</th>
-                    <th>Centro</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for nf in nfs %}
-                <tr>
-                    <td>{{ nf.id }}</td>
-                    <td>{{ nf.chave_acesso }}</td>
-                    <td>{{ nf.filial.cnpj }}</td>
-                    <td>{{ nf.nf }}</td>
-                    <td>{{ nf.codigo_cte }}</td>
-                    <td>{{ nf.volumes }}</td>
-                    <td>{{ nf.filial.nome }}</td>
-                    <td>{{ nf.centro.nome }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <button class="btn btn-primary btn-block" onclick="goBack()">VOLTAR</button>
+    {% for nf in nfs %}
+    <div class="nf-card mb-4">
+        <div class="card-body">
+            <div class="row nf-item">
+                <div class="col-md-12 col-sm-12">
+                    <span class="nf-label">
+                        {% if nf.chave_acesso %}
+                        <svg class="copy-icon" onclick="copyToClipboard('{{ nf.chave_acesso }}')" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="15" height="15"><path d="M21.155,3.272,18.871.913A3.02,3.02,0,0,0,16.715,0H12A5.009,5.009,0,0,0,7.1,4H7A5.006,5.006,0,0,0,2,9V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5v-.1A5.009,5.009,0,0,0,22,14V5.36A2.988,2.988,0,0,0,21.155,3.272ZM13,22H7a3,3,0,0,1-3-3V9A3,3,0,0,1,7,6v8a5.006,5.006,0,0,0,5,5h4A3,3,0,0,1,13,22Zm4-5H12a3,3,0,0,1-3-3V5a3,3,0,0,1,3-3h4V4a2,2,0,0,0,2,2h2v8A3,3,0,0,1,17,17Z"/></svg>
+                        {% endif %}
+                        Chave de Acesso:
+                    </span>
+                    <span class="nf-value">{{ nf.chave_acesso }}</span>
+                </div>
+            </div>
+            <div class="row nf-item">
+                <div class="col-md-4 col-sm-12">
+                    <span class="nf-label">
+                        {% if nf.filial.cnpj %}
+                        <svg class="copy-icon" onclick="copyToClipboard('{{ nf.filial.cnpj }}')" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="15" height="15"><path d="M21.155,3.272,18.871.913A3.02,3.02,0,0,0,16.715,0H12A5.009,5.009,0,0,0,7.1,4H7A5.006,5.006,0,0,0,2,9V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5v-.1A5.009,5.009,0,0,0,22,14V5.36A2.988,2.988,0,0,0,21.155,3.272ZM13,22H7a3,3,0,0,1-3-3V9A3,3,0,0,1,7,6v8a5.006,5.006,0,0,0,5,5h4A3,3,0,0,1,13,22Zm4-5H12a3,3,0,0,1-3-3V5a3,3,0,0,1,3-3h4V4a2,2,0,0,0,2,2h2v8A3,3,0,0,1,17,17Z"/></svg>
+                        {% endif %}
+                        CNPJ:
+                    </span>
+                    <span class="nf-value">{{ nf.filial.cnpj }}</span>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <span class="nf-label">
+                        {% if nf.nf %}
+                        <svg class="copy-icon" onclick="copyToClipboard('{{ nf.nf }}')" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="15" height="15"><path d="M21.155,3.272,18.871.913A3.02,3.02,0,0,0,16.715,0H12A5.009,5.009,0,0,0,7.1,4H7A5.006,5.006,0,0,0,2,9V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5v-.1A5.009,5.009,0,0,0,22,14V5.36A2.988,2.988,0,0,0,21.155,3.272ZM13,22H7a3,3,0,0,1-3-3V9A3,3,0,0,1,7,6v8a5.006,5.006,0,0,0,5,5h4A3,3,0,0,1,13,22Zm4-5H12a3,3,0,0,1-3-3V5a3,3,0,0,1,3-3h4V4a2,2,0,0,0,2,2h2v8A3,3,0,0,1,17,17Z"/></svg>
+                        {% endif %}
+                        NF:
+                    </span>
+                    <span class="nf-value">{{ nf.nf }}</span>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <span class="nf-label">
+                        {% if nf.codigo_cte %}
+                        <svg class="copy-icon" onclick="copyToClipboard('{{ nf.codigo_cte }}')" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="15" height="15"><path d="M21.155,3.272,18.871.913A3.02,3.02,0,0,0,16.715,0H12A5.009,5.009,0,0,0,7.1,4H7A5.006,5.006,0,0,0,2,9V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5v-.1A5.009,5.009,0,0,0,22,14V5.36A2.988,2.988,0,0,0,21.155,3.272ZM13,22H7a3,3,0,0,1-3-3V9A3,3,0,0,1,7,6v8a5.006,5.006,0,0,0,5,5h4A3,3,0,0,1,13,22Zm4-5H12a3,3,0,0,1-3-3V5a3,3,0,0,1,3-3h4V4a2,2,0,0,0,2,2h2v8A3,3,0,0,1,17,17Z"/></svg>
+                        {% endif %}
+                        Código CTE:
+                    </span>
+                    <span class="nf-value">{{ nf.codigo_cte }}</span>
+                </div>
+            </div>
+            <div class="row nf-item">
+                <div class="col-md-4 col-sm-12">
+                    <span class="nf-label">
+                        {% if nf.volumes %}
+                        <svg class="copy-icon" onclick="copyToClipboard('{{ nf.volumes }}')" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="15" height="15"><path d="M21.155,3.272,18.871.913A3.02,3.02,0,0,0,16.715,0H12A5.009,5.009,0,0,0,7.1,4H7A5.006,5.006,0,0,0,2,9V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5v-.1A5.009,5.009,0,0,0,22,14V5.36A2.988,2.988,0,0,0,21.155,3.272ZM13,22H7a3,3,0,0,1-3-3V9A3,3,0,0,1,7,6v8a5.006,5.006,0,0,0,5,5h4A3,3,0,0,1,13,22Zm4-5H12a3,3,0,0,1-3-3V5a3,3,0,0,1,3-3h4V4a2,2,0,0,0,2,2h2v8A3,3,0,0,1,17,17Z"/></svg>
+                        {% endif %}
+                        Volumes:
+                    </span>
+                    <span class="nf-value">{{ nf.volumes }}</span>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <span class="nf-label">
+                        {% if nf.filial.nome %}
+                        <svg class="copy-icon" onclick="copyToClipboard('{{ nf.filial.nome }}')" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="15" height="15"><path d="M21.155,3.272,18.871.913A3.02,3.02,0,0,0,16.715,0H12A5.009,5.009,0,0,0,7.1,4H7A5.006,5.006,0,0,0,2,9V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5v-.1A5.009,5.009,0,0,0,22,14V5.36A2.988,2.988,0,0,0,21.155,3.272ZM13,22H7a3,3,0,0,1-3-3V9A3,3,0,0,1,7,6v8a5.006,5.006,0,0,0,5,5h4A3,3,0,0,1,13,22Zm4-5H12a3,3,0,0,1-3-3V5a3,3,0,0,1,3-3h4V4a2,2,0,0,0,2,2h2v8A3,3,0,0,1,17,17Z"/></svg>
+                        {% endif %}
+                        Filial:
+                    </span>
+                    <span class="nf-value">{{ nf.filial.nome }}</span>
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <span class="nf-label">
+                        {% if nf.centro.nome %}
+                        <svg class="copy-icon" onclick="copyToClipboard('{{ nf.centro.nome }}')" xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24" width="15" height="15"><path d="M21.155,3.272,18.871.913A3.02,3.02,0,0,0,16.715,0H12A5.009,5.009,0,0,0,7.1,4H7A5.006,5.006,0,0,0,2,9V19a5.006,5.006,0,0,0,5,5h6a5.006,5.006,0,0,0,5-5v-.1A5.009,5.009,0,0,0,22,14V5.36A2.988,2.988,0,0,0,21.155,3.272ZM13,22H7a3,3,0,0,1-3-3V9A3,3,0,0,1,7,6v8a5.006,5.006,0,0,0,5,5h4A3,3,0,0,1,13,22Zm4-5H12a3,3,0,0,1-3-3V5a3,3,0,0,1,3-3h4V4a2,2,0,0,0,2,2h2v8A3,3,0,0,1,17,17Z"/></svg>
+                        {% endif %}
+                        Centro:
+                    </span>
+                    <span class="nf-value">{{ nf.centro.nome }}</span>
+                </div>
+            </div>
+        </div>
     </div>
+    {% endfor %}
+    <button id="go-back" class="btn btn-primary" onclick="goBack()">Voltar</button>
 </div>
-
-<script>
-    function goBack() {
-        window.history.back();
-    }
-</script>
 {% endblock %}

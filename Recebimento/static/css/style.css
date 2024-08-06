@@ -2,6 +2,7 @@
 @import url('tables.css');
 @import url('home.css');
 @import url('recebimento.css');
+@import url('view.css');
 
 * {
     font-family: 'Exo 2', sans-serif;
@@ -97,4 +98,14 @@ button[type=submit]:hover {
     text-align: center;
     flex-direction: column;
     gap: .5rem;
+}
+
+#go-back {
+    text-transform: uppercase;
+    width: 50%;
+    transition: font-size .3s ease;
+}
+
+#go-back:hover {
+    font-size: 1.1rem;
 }

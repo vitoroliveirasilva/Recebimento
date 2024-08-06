@@ -123,19 +123,9 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-primary">Atualizar</button>
+                <button type="submit" class="btn btn-primary" onclick="goBack()">Atualizar</button>
             </div>
         </form>
     </div>
 </div>
-<script>
-    document.getElementById('alterar_senha').addEventListener('change', function () {
-        var senhaFields = document.getElementById('senha_fields');
-        if (this.checked) {
-            senhaFields.style.display = 'block';
-        } else {
-            senhaFields.style.display = 'none';
-        }
-    });
-</script>
 {% endblock %}

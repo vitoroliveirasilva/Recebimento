@@ -1,0 +1,50 @@
+.container-nf {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.nf-card {
+    width: 50%;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
+    transition: all .3s ease;
+}
+
+.nf-item {
+    margin-bottom: 15px;
+}
+
+.nf-label {
+    font-weight: bold;
+    display: block;
+    margin: 5px;
+}
+
+.nf-value {
+    font-size: 1.1rem;
+    display: block;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.container-nf svg {
+    width: 15px;
+    height: 15px;
+    fill: #000;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.container-nf svg:hover {
+    width: 17px;
+    height: 17px;
+    fill: #8A2BE2;
+}
