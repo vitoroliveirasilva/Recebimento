@@ -4,42 +4,42 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="form-group text-center mt-4">Editar Centro</h1>
+    <h1 class="text-center">Editar Centro</h1>
+    <div class="container-home">
 
-    <!-- Seção para exibir mensagens flash -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" name="nome" value="{{ centro.nome }}" required>
+            </div>
+            <div class="form-group">
+                <label for="filial">Filial:</label>
+                <select class="form-control" name="filial" required>
+                    {% for filial in filiais %}
+                    <option value="{{ filial.id }}" {% if filial.id == centro.filial_id %} selected {% endif %}>
+                        {{ filial.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+            </div>
+        </form>
     </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            <label for="nome">Nome:</label>
-            <input type="text" class="form-control" name="nome" value="{{ centro.nome }}" required>
-        </div>
-        <div class="form-group">
-            <label for="filial">Filial:</label>
-            <select class="form-control" name="filial" required>
-                {% for filial in filiais %}
-                <option value="{{ filial.id }}" {% if filial.id == centro.filial_id %} selected {% endif %}>
-                    {{ filial.nome }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="form-group mt-2 d-flex">
-            <button type="submit" class="btn btn-primary flex-grow-1 py-2"
-                style="text-transform: uppercase;">Atualizar</button>
-        </div>
-    </form>
-    <a href="/tabela-centros" class="btn btn-secondary btn-block mt-3">Voltar</a>
 </div>
 {% endblock %}

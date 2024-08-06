@@ -3,89 +3,130 @@
 {% set title = "Editar Responsável" %}
 
 {% block content %}
-<style>
-    .large {
-        transform: scale(1.5);
-    }
-
-    .large-label {
-        font-size: 1em;
-        margin-left: 12px;
-    }
-</style>
 <div class="container">
-    <h1 class="form-group text-center mt-4">Editar Responsável</h1>
+    <h1 class="text-center mt-5">Editar Responsável</h1>
+    <div class="container-home">
 
-    <!-- Seção para exibir mensagens flash -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    {% for category, message in messages %}
-    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-        {{ message }}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
+        <!-- Seção para exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.nome.label }} {{ form.nome(size=32, class="form-control", value=responsavel.nome) }}
+            </div>
+            <div class="form-group">
+                {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control", value=responsavel.usuario) }}
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="d-flex justify-content-left">
+                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                        <div class="checkbox-wrapper-4">
+                            <input class="inp-cbx" type="checkbox" id="alterar_senha" name="alterar_senha"
+                        {% if form.alterar_senha.data %}checked{% endif %}>
+                            <label class="cbx" for="alterar_senha"><span>
+                                    <svg width="12px" height="10px">
+                                        <use xlink:href="#check-4"></use>
+                                    </svg></span><span>{{ form.alterar_senha.label.text }}</span></label>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group" id="senha_fields" style="display:none;">
+                {{ form.nova_senha.label }} {{ form.nova_senha(class="form-control") }}
+                {{ form.confirm_nova_senha.label }} {{ form.confirm_nova_senha(class="form-control") }}
+            </div>
+
+
+            <div class="form-group">
+                <div class="d-flex justify-content-left">
+                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                        <div class="checkbox-wrapper-4">
+                            <input class="inp-cbx" type="checkbox" id="permissao" name="permissao" {% if responsavel.permissao %}checked{% endif %} value="true">
+                            <label class="cbx" for="permissao"><span>
+                                    <svg width="12px" height="10px">
+                                        <use xlink:href="#check-4"></use>
+                                    </svg></span><span>Administrador</span></label>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-left">
+                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                        <div class="checkbox-wrapper-4">
+                            <input class="inp-cbx" type="checkbox" id="ativo" name="ativo" {% if responsavel.ativo %}checked{% endif %} value="true">
+                            <label class="cbx" for="ativo"><span>
+                                    <svg width="12px" height="10px">
+                                        <use xlink:href="#check-4"></use>
+                                    </svg></span><span>Ativo</span></label>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Filiais:</label>
+                <div class="options-filiais">
+                    <div class="d-flex flex-wrap">
+                        {% for filial in filiais %}
+                        <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                            <div class="checkbox-wrapper-4 d-flex align-items-center">
+                                <input class="inp-cbx" type="checkbox" id="filial_{{ filial[0] }}" name="filiais" value="{{ filial[0] }}" {% if filial[0] in filiais_associadas %} checked {% endif %}>
+                                <label class="cbx" for="filial_{{ filial[0] }}">
+                                    <span class="svg-wrapper">
+                                        <svg width="12px" height="10px">
+                                            <use xlink:href="#check-4"></use>
+                                        </svg>
+                                    </span>
+                                    <span>{{ filial[1] }}</span>
+                                </label>
+                                <svg class="inline-svg">
+                                    <symbol id="check-4" viewbox="0 0 12 10">
+                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                    </symbol>
+                                </svg>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Atualizar</button>
+            </div>
+        </form>
     </div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <div class="form-group">
-            {{ form.nome.label }} {{ form.nome(size=32, class="form-control", value=responsavel.nome) }}
-        </div>
-        <div class="form-group">
-            {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control", value=responsavel.usuario) }}
-        </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input large" type="checkbox" id="alterar_senha" name="alterar_senha"
-                    {% if form.alterar_senha.data %}checked{% endif %}>
-                <label class="form-check-label large-label" for="alterar_senha">
-                    {{ form.alterar_senha.label.text }}
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group" id="senha_fields" style="display:none;">
-            {{ form.nova_senha.label }} {{ form.nova_senha(class="form-control") }}
-            {{ form.confirm_nova_senha.label }} {{ form.confirm_nova_senha(class="form-control") }}
-        </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input large" type="checkbox" id="permissao" name="permissao"
-                    {% if responsavel.permissao %}checked{% endif %} value="true">
-                <label class="form-check-label large-label" for="permissao">
-                    Administrador
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="form-check">
-                <input class="form-check-input large" type="checkbox" id="ativo" name="ativo"
-                    {% if responsavel.ativo %}checked{% endif %} value="true">
-                <label class="form-check-label large-label" for="ativo">
-                    Ativo
-                </label>
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Filiais:</label><br>
-            {% for filial in filiais %}
-            <div class="form-check">
-                <input class="form-check-input large" type="checkbox" id="filial_{{ filial[0] }}" name="filiais"
-                    value="{{ filial[0] }}" {% if filial[0] in filiais_associadas %} checked {% endif %}>
-                <label class="form-check-label large-label" for="filial_{{ filial[0] }}">{{ filial[1] }}</label>
-            </div>
-            {% endfor %}
-        </div>
-        <div class="form-group mt-2 d-flex">
-            <button type="submit" class="btn btn-primary flex-grow-1 py-2"
-                style="text-transform: uppercase;">Atualizar</button>
-        </div>
-    </form>
-    <a href="/tabela-responsaveis" class="btn btn-secondary btn-block mt-3">Voltar ao menu</a>
 </div>
 <script>
     document.getElementById('alterar_senha').addEventListener('change', function () {
