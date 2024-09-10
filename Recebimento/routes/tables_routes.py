@@ -17,7 +17,7 @@ def table_responsaveis():
 def table_filiais():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 5, type=int)
-    filiais = Filial.query.paginate(page=page, per_page=per_page, error_out=False)
+    filiais = Filial.query.order_by(desc(Filial.id)).paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/filial.html', filiais=filiais)
 
 @app.route('/tabela-centros')

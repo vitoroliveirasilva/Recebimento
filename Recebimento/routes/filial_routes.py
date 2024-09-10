@@ -17,15 +17,13 @@ def register_filial():
             if not filial_exists(data['nome']):
                 register_new_filial(data)
                 flash('Filial registrada com sucesso.', 'success')
+                return redirect('/tabela-filiais')
             else:
-                flash('Erro: Filial já existe. Por favor, escolha outro nome.')
+                flash('Filial já existe. Por favor, escolha outro nome.', 'warning')
         except Exception as e:
-            flash(f'Erro ao registrar a filial: {str(e)}')
+            flash(f'Erro ao registrar a filial: {str(e)}', 'danger')
 
-        return redirect('/cadastro/filiais')
-
-    filiais = Filial.query.all()
-    return render_template('/register/filial.html', form=form, filiais=filiais)
+    return render_template('/register/filial.html', form=form)
 
 @app.route('/editar_filial/<int:filial_id>', methods=['GET', 'POST'])
 @login_required
@@ -35,13 +33,15 @@ def editar_filial(filial_id):
     
     if form.validate_on_submit():
         data = form.data
-        if not filial_exists(data['nome'], filial.nome):
-            update_filial(filial, data)
-            flash('Filial atualizada com sucesso.')
-            return redirect('/cadastro/filiais')
-        else:
-            flash('Erro: Filial já existe. Por favor, escolha outro nome.')
-            return redirect(f'/editar_filial/{filial_id}')
+        try:
+            if not filial_exists(data['nome']):
+                update_filial(filial, data, db)
+                flash('Filial atualizada com sucesso.', 'success')
+                return redirect('/tabela-filiais')
+            else:
+                flash('Filial já existe. Por favor, escolha outro nome.', 'warning')
+        except Exception as e:
+            flash(f'Ocorreu um erro ao atualizar a filial: {str(e)}', 'danger')
 
     return render_template('/edit/filial.html', form=form, filial=filial)
 
@@ -50,7 +50,7 @@ def editar_filial(filial_id):
 def excluir_filial(filial_id):
     filial = Filial.query.get_or_404(filial_id)
     if delete_filial(filial, filial_id, db):
-        flash('Filial excluída com sucesso.')
+        flash('Filial excluída com sucesso.', 'success')
     else:
-        flash('Erro ao excluir a filial.')
+        flash('Não foi possível excluir a filial.', 'danger')
     return redirect('/tabela-filiais')
