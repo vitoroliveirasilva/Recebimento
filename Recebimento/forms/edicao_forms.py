@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, PasswordField, SubmitField, BooleanField, SelectMultipleField
 from wtforms.validators import DataRequired, Length, Optional, EqualTo
+from Recebimento.utils import get_all_filiais
 
 
 class EditarResponsavelForm(FlaskForm):
@@ -20,5 +21,9 @@ class EditarFilialForm(FlaskForm):
 
 class EditarCentroForm(FlaskForm):
     nome = StringField('Nome', validators=[DataRequired(), Length(min=2, max=255)])
-    filial = SelectField('Filial', coerce=int, choices=[], validators=[DataRequired()])
+    filial = SelectField('Filial', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Atualizar')
+
+    def __init__(self, *args, **kwargs):
+        super(EditarCentroForm, self).__init__(*args, **kwargs)
+        self.filial.choices = [(filial.id, filial.nome) for filial in get_all_filiais()]

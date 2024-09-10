@@ -25,21 +25,16 @@
             {{ form.hidden_tag() }}
             <div class="form-group">
                 <label for="nome">Nome:</label>
-                <input type="text" class="form-control" name="nome" value="{{ centro.nome }}" required>
+                {{ form.nome(class="form-control", value=centro.nome) }}
             </div>
             <div class="form-group">
                 <label for="filial">Filial:</label>
-                <select class="form-control" name="filial" required>
-                    {% for filial in filiais %}
-                    <option value="{{ filial.id }}" {% if filial.id == centro.filial_id %} selected {% endif %}>
-                        {{ filial.nome }}</option>
-                    {% endfor %}
-                </select>
+                {{ form.filial(class="form-control") }}
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" onclick="goBack()">Atualizar</button>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
             </div>
-        </form>
+        </form>        
     </div>
 </div>
 {% endblock %}
