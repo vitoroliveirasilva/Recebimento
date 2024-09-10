@@ -12,8 +12,12 @@ class EditarResponsavelForm(FlaskForm):
     nova_senha = PasswordField('Nova Senha', validators=[Optional(), Length(min=6)])
     confirm_nova_senha = PasswordField('Confirmar Nova Senha', validators=[Optional(), EqualTo('nova_senha')])
     permissao = BooleanField('Permissão', validators=[Optional()])
-    filiais = SelectMultipleField('Filiais', coerce=int, choices=[], validators=[DataRequired()])
+    filiais = SelectMultipleField('Filiais', coerce=int, validators=[DataRequired()])
     submit = SubmitField('Atualizar')
+
+    def __init__(self, *args, **kwargs):
+        super(EditarResponsavelForm, self).__init__(*args, **kwargs)
+        self.filiais.choices = [(filial.id, filial.nome) for filial in get_all_filiais()]
 
 class EditarFilialForm(FlaskForm):
     nome = StringField('Nome', validators=[DataRequired(), Length(min=2, max=255)])

@@ -24,58 +24,16 @@
         <form method="POST">
             {{ form.hidden_tag() }}
             <div class="form-group">
-                {{ form.nome.label }} {{ form.nome(size=32, class="form-control", value=responsavel.nome) }}
+                <label for="nome">Nome:</label>
+                {{ form.nome(class="form-control") }}
             </div>
+        
             <div class="form-group">
-                {{ form.usuario.label }} {{ form.usuario(size=32, class="form-control", value=responsavel.usuario) }}
+                <label for="usuario">Usuário:</label>
+                {{ form.usuario(class="form-control") }}
             </div>
-
-
-
+        
             <div class="form-group">
-                <div class="d-flex justify-content-left">
-                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
-                        <div class="checkbox-wrapper-4">
-                            <input class="inp-cbx" type="checkbox" id="alterar_senha" name="alterar_senha"
-                        {% if form.alterar_senha.data %}checked{% endif %}>
-                            <label class="cbx" for="alterar_senha"><span>
-                                    <svg width="12px" height="10px">
-                                        <use xlink:href="#check-4"></use>
-                                    </svg></span><span>{{ form.alterar_senha.label.text }}</span></label>
-                            <svg class="inline-svg">
-                                <symbol id="check-4" viewbox="0 0 12 10">
-                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                </symbol>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group" id="senha_fields" style="display:none;">
-                {{ form.nova_senha.label }} {{ form.nova_senha(class="form-control") }}
-                {{ form.confirm_nova_senha.label }} {{ form.confirm_nova_senha(class="form-control") }}
-            </div>
-
-
-            <div class="form-group">
-                <div class="d-flex justify-content-left">
-                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
-                        <div class="checkbox-wrapper-4">
-                            <input class="inp-cbx" type="checkbox" id="permissao" name="permissao" {% if responsavel.permissao %}checked{% endif %} value="true">
-                            <label class="cbx" for="permissao"><span>
-                                    <svg width="12px" height="10px">
-                                        <use xlink:href="#check-4"></use>
-                                    </svg></span><span>Administrador</span></label>
-                            <svg class="inline-svg">
-                                <symbol id="check-4" viewbox="0 0 12 10">
-                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                </symbol>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
                 <div class="d-flex justify-content-left">
                     <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
                         <div class="checkbox-wrapper-4">
@@ -93,9 +51,56 @@
                     </div>
                 </div>
             </div>
-
+        
             <div class="form-group">
-                <label>Filiais:</label>
+                <div class="d-flex justify-content-left">
+                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                        <div class="checkbox-wrapper-4">
+                            <input class="inp-cbx" type="checkbox" id="alterar_senha" name="alterar_senha"
+                            {% if form.alterar_senha.data %}checked{% endif %}>
+                            <label class="cbx" for="alterar_senha"><span>
+                                    <svg width="12px" height="10px">
+                                        <use xlink:href="#check-4"></use>
+                                    </svg></span><span>Alterar Senha</span></label>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group" id="senha_fields" style="display:none;">
+                <label for="nova_senha">Nova Senha:</label>
+                {{ form.nova_senha(class="form-control") }}
+        
+                <label for="confirm_nova_senha">Confirmar Nova Senha:</label>
+                {{ form.confirm_nova_senha(class="form-control") }}
+            </div>
+        
+            <div class="form-group">
+                <div class="d-flex justify-content-left">
+                    <div class="custom-control custom-checkbox mr-3 d-flex align-items-center">
+                        <div class="checkbox-wrapper-4">
+                            <input class="inp-cbx" type="checkbox" id="permissao" name="permissao" {% if responsavel.permissao %}checked{% endif %} value="true">
+                            <label class="cbx" for="permissao"><span>
+                                    <svg width="12px" height="10px">
+                                        <use xlink:href="#check-4"></use>
+                                    </svg></span><span>Administrador</span></label>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <label for="filiais">Filiais:</label>
                 <div class="options-filiais">
                     <div class="d-flex flex-wrap">
                         {% for filial in filiais %}
@@ -121,11 +126,12 @@
                     </div>
                 </div>
             </div>
-
+        
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" onclick="goBack()">Atualizar</button>
+                <button type="submit" class="btn btn-primary">Atualizar</button>
             </div>
-        </form>
+        </form>        
+
     </div>
 </div>
 {% endblock %}

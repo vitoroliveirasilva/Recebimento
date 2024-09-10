@@ -1,9 +1,9 @@
 from flask import render_template, redirect, flash
 from Recebimento import app, db
-from Recebimento.models import Centro, Filial
+from Recebimento.models import Centro
 from flask_login import login_required
 from Recebimento.forms import CadastroCentroForm, EditarCentroForm
-from Recebimento.utils import get_filial_choices, centro_exists, register_new_centro, update_centro, delete_centro, get_all_filiais
+from Recebimento.utils import get_filial_choices, centro_exists, register_new_centro, update_centro, delete_centro
 
 
 @app.route('/cadastro/centros', methods=['GET', 'POST'])
