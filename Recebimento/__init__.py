@@ -23,7 +23,6 @@ login_manager = LoginManager(app)
 
 # Import models and routes after initializing extensions to avoid circular imports
 from Recebimento.models import Responsavel
-from Recebimento import routes
 
 # Configure Flask-Login user loader
 @login_manager.user_loader

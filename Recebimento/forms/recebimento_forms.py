@@ -18,7 +18,6 @@ class RecebimentoForm(FlaskForm):
     recusa = BooleanField('Recusa', validators=[Optional()])
     submit = SubmitField('Registrar')
 
-
 class MudarStatusForm(FlaskForm):
     responsavel = SelectField('responsavel', coerce=int, choices=[], validators=[DataRequired()])
     status = SelectField('status', choices=STATUS_CHOICES, validators=[DataRequired()])

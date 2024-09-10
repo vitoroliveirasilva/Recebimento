@@ -1,6 +1,4 @@
 from Recebimento import db
-from .responsavel_models import Responsavel
-from .nota_fiscal_models import NotaFiscal
 
 class RegistroRecebimento(db.Model):
     id = db.Column(db.Integer, primary_key=True)

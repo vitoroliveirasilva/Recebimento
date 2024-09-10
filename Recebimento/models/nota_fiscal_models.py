@@ -1,6 +1,4 @@
 from Recebimento import db
-from .filial_models import Filial
-from .centro_models import Centro
 
 class NotaFiscal(db.Model):
     id = db.Column(db.Integer, primary_key=True)
