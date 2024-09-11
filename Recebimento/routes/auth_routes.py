@@ -16,11 +16,11 @@ def login():
                     login_user(user)
                     return redirect('/')
                 else:
-                    flash('Senha incorreta.', 'Erro')
+                    flash('Senha incorreta.', 'danger')
             else:
-                flash('Usuário inativo. Entre em contato com o administrador.', 'Erro')
+                flash('Usuário inativo. Entre em contato com o administrador.', 'danger')
         else:
-            flash('Usuário não encontrado.', 'Erro')
+            flash('Usuário não encontrado.', 'danger')
 
     return render_template('/auth/login.html', form=form)
 

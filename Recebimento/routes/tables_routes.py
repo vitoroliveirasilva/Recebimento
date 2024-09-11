@@ -9,7 +9,7 @@ from sqlalchemy import desc, and_, func
 def table_responsaveis():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 5, type=int)
-    responsaveis = Responsavel.query.paginate(page=page, per_page=per_page, error_out=False)
+    responsaveis = Responsavel.query.order_by(desc(Responsavel.id)).paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/responsavel.html', responsaveis=responsaveis)
 
 @app.route('/tabela/filial')
@@ -25,7 +25,7 @@ def table_filiais():
 def table_centros():
     page = request.args.get('page', 1, type=int)
     per_page = request.args.get('per_page', 5, type=int)
-    centros = Centro.query.paginate(page=page, per_page=per_page, error_out=False)
+    centros = Centro.query.order_by(desc(Centro.id)).paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/centro.html', centros=centros)
 
 @app.route('/tabela-registros', methods=['POST'])
