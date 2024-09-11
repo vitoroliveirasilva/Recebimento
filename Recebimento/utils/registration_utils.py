@@ -123,13 +123,6 @@ def register_estorno(form, chave_acesso, db):
         commit_or_rollback(db)
         return new_receipt
 
-def update_responsavelfilial(responsavel, filiais_selecionadas, db):
-    ResponsavelFilial.query.filter_by(responsavel_id=responsavel.id).delete()
-    for filial_id in filiais_selecionadas:
-        responsavel_filial = ResponsavelFilial(responsavel_id=responsavel.id, filial_id=filial_id)
-        db.session.add(responsavel_filial)
-    commit_or_rollback(db)
-
 def update_centro(centro, data, db):
     centro.nome = data['nome']
     centro.filial_id = int(data['filial'])
@@ -139,14 +132,29 @@ def update_filial(filial, data, db):
     filial.nome = data['nome']
     db.session.commit()
 
-def update_responsavel(responsavel, form, db):
-    responsavel.nome = form.nome.data
-    responsavel.ativo = form.ativo.data
-    responsavel.usuario = form.usuario.data
-    if form.alterar_senha.data:
-        responsavel.senha_hash = bcrypt.generate_password_hash(form.nova_senha.data).decode('utf-8')
-    responsavel.permissao = form.permissao.data
-    db.session.commit()
+def update_responsavel_e_filial(responsavel, form, filiais_selecionadas, db):
+    try:
+        # Atualiza as informações do responsável
+        responsavel.nome = form.nome.data
+        responsavel.ativo = form.ativo.data
+        responsavel.usuario = form.usuario.data
+        if form.alterar_senha.data:
+            responsavel.senha_hash = bcrypt.generate_password_hash(form.nova_senha.data).decode('utf-8')
+        responsavel.permissao = form.permissao.data
+
+        # Atualiza as filiais associadas
+        # Remove as antigas associações
+        ResponsavelFilial.query.filter_by(responsavel_id=responsavel.id).delete()
+
+        # Adiciona as novas associações
+        for filial_id in filiais_selecionadas:
+            responsavel_filial = ResponsavelFilial(responsavel_id=responsavel.id, filial_id=filial_id)
+            db.session.add(responsavel_filial)
+
+        # Commit das mudanças no banco de dados
+        commit_or_rollback(db)
+    except SQLAlchemyError as e:
+        db.session.rollback()
 
 def commit_or_rollback(db):
     try:

@@ -18,7 +18,7 @@ def register_centro():
             if not centro_exists(data['nome']):
                 register_new_centro(data)
                 flash('Centro registrado com sucesso.', 'success')
-                return redirect('/tabela-centros')
+                return redirect('/tabela/centro')
             else:
                 flash('Centro já existe. Por favor, escolha outro nome.', 'warning')
         except Exception as e:
@@ -38,7 +38,7 @@ def editar_centro(centro_id):
             if not centro_exists(data['nome']):
                 update_centro(centro, data, db)
                 flash('Centro atualizado com sucesso.', 'success')
-                return redirect('/tabela-centros')
+                return redirect('/tabela/centro')
             else:
                 flash('Centro já existe. Por favor, escolha outro nome.', 'warning')
         except Exception as e:
@@ -54,4 +54,4 @@ def excluir_centro(centro_id):
         flash('Centro excluído com sucesso.', 'success')
     else:
         flash('Erro ao excluir o centro.', 'danger')
-    return redirect('/tabela-centros')
+    return redirect('/tabela/centro')

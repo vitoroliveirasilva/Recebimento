@@ -4,7 +4,7 @@ from flask_login import login_required
 from Recebimento.models import NotaFiscal, Filial, Centro, RegistroRecebimento, Responsavel
 from sqlalchemy import desc, and_, func
 
-@app.route('/tabela-responsaveis')
+@app.route('/tabela/responsavel')
 @login_required
 def table_responsaveis():
     page = request.args.get('page', 1, type=int)
@@ -12,7 +12,7 @@ def table_responsaveis():
     responsaveis = Responsavel.query.paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/responsavel.html', responsaveis=responsaveis)
 
-@app.route('/tabela-filiais')
+@app.route('/tabela/filial')
 @login_required
 def table_filiais():
     page = request.args.get('page', 1, type=int)
@@ -20,7 +20,7 @@ def table_filiais():
     filiais = Filial.query.order_by(desc(Filial.id)).paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/filial.html', filiais=filiais)
 
-@app.route('/tabela-centros')
+@app.route('/tabela/centro')
 @login_required
 def table_centros():
     page = request.args.get('page', 1, type=int)

@@ -17,7 +17,7 @@ def register_filial():
             if not filial_exists(data['nome']):
                 register_new_filial(data)
                 flash('Filial registrada com sucesso.', 'success')
-                return redirect('/tabela-filiais')
+                return redirect('/tabela/filial')
             else:
                 flash('Filial já existe. Por favor, escolha outro nome.', 'warning')
         except Exception as e:
@@ -37,7 +37,7 @@ def editar_filial(filial_id):
             if not filial_exists(data['nome']):
                 update_filial(filial, data, db)
                 flash('Filial atualizada com sucesso.', 'success')
-                return redirect('/tabela-filiais')
+                return redirect('/tabela/filial')
             else:
                 flash('Filial já existe. Por favor, escolha outro nome.', 'warning')
         except Exception as e:
@@ -53,4 +53,4 @@ def excluir_filial(filial_id):
         flash('Filial excluída com sucesso.', 'success')
     else:
         flash('Não foi possível excluir a filial.', 'danger')
-    return redirect('/tabela-filiais')
+    return redirect('/tabela/filial')

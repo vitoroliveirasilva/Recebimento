@@ -1,10 +1,9 @@
-from flask import render_template, redirect, flash
+from flask import render_template, redirect, flash, url_for
 from Recebimento import app, db
 from Recebimento.models import Responsavel, ResponsavelFilial, Filial
 from flask_login import login_required
 from Recebimento.forms import CadastroResponsavelForm, EditarResponsavelForm
-from Recebimento.utils import user_exists, register_new_responsavel, commit_or_rollback, update_responsavel, delete_responsavel, get_filial_choices
-
+from Recebimento.utils import user_exists, register_new_responsavel, commit_or_rollback, delete_responsavel, get_filial_choices, update_responsavel_e_filial
 
 @app.route('/cadastro/responsavel', methods=['GET', 'POST'])
 @login_required
@@ -14,16 +13,16 @@ def register_responsavel():
     
     if form.validate_on_submit():
         try:
-            if not user_exists(form.nome.data):
+            if not user_exists(form.usuario.data):
                 responsavel = register_new_responsavel(form.data, db)
                 for filial_id in form.filiais.data:
                     responsavel_filial = ResponsavelFilial(responsavel_id=responsavel.id, filial_id=int(filial_id))
                     db.session.add(responsavel_filial)
                 commit_or_rollback(db)
                 flash('Responsável registrado com sucesso.', 'success')
-                return redirect('/tabela-responsaveis')
+                return redirect('/tabela/responsavel')
             else:
-                flash('Responsável já existe. Por favor, escolha outro nome.', 'warning')
+                flash('Responsável já existe. Por favor, escolha outro nome de usuário.', 'warning')
         except Exception as e:
             flash(f'Erro ao registrar o responsável: {str(e)}', 'danger')
     
@@ -36,31 +35,29 @@ def editar_responsavel(responsavel_id):
     form = EditarResponsavelForm(obj=responsavel)
 
     try:
+        # Busca todas as filiais e as associadas ao responsável
         filiais = [(filial.id, filial.nome) for filial in Filial.query.all()]
         filiais_associadas = [rf.filial_id for rf in responsavel.responsaveis_filial]
         form.filiais.choices = filiais
     except Exception as e:
         flash(f'Ocorreu um erro ao buscar as filiais: {str(e)}', 'danger')
-        return redirect('/tabela-responsaveis')
+        return redirect('/tabela/responsavel')
     
     if form.validate_on_submit():
         data = form.data
         try:
-            # Verifica se o nome de usuário foi alterado
-            if responsavel.usuario != data['usuario']:
-                # Verifica se o novo nome de usuário já existe
-                if user_exists(data['usuario']):
-                    flash('Erro: Usuário já existe. Por favor, escolha outro nome.', 'warning')
-                    return redirect(f'/editar_responsavel/{responsavel_id}')
-                else:
-                    update_responsavel(responsavel, form, db)
-                    flash('O responsável foi atualizado com sucesso!', 'success')
-                    return redirect('/tabela-responsaveis')
-            else:
-                update_responsavel(responsavel, form, db)
-                flash('O responsável foi atualizado com sucesso!', 'success')
-                return redirect('/tabela-responsaveis')        
+            # Valida se o novo usuário já existe
+            if responsavel.usuario != data['usuario'] and user_exists(data['usuario']):
+                flash('Erro: Usuário já existe. Por favor, escolha outro nome de usuário.', 'warning')
+                return redirect(url_for('editar_responsavel', responsavel_id=responsavel_id))
+            
+            # Atualiza as informações do responsável e suas filiais
+            update_responsavel_e_filial(responsavel, form, form.filiais.data, db)
+            
+            flash('O responsável foi atualizado com sucesso!', 'success')
+            return redirect('/tabela/responsavel')
         except Exception as e:
+            db.session.rollback()
             flash(f'Ocorreu um erro ao atualizar o responsável: {str(e)}', 'danger')
 
     return render_template('/edit/responsavel.html', form=form, responsavel=responsavel, filiais=filiais, filiais_associadas=filiais_associadas)
@@ -72,5 +69,5 @@ def excluir_responsavel(responsavel_id):
     if delete_responsavel(responsavel, responsavel_id, db):
         flash('Responsável excluído com sucesso.', 'success')
     else:
-        flash('Erro ao excluir o responsável.', 'Erro')
-    return redirect('/tabela-responsaveis')
+        flash('Erro ao excluir o responsável.', 'danger')
+    return redirect('/tabela/responsavel')
