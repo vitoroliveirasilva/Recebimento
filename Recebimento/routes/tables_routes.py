@@ -28,21 +28,7 @@ def table_centros():
     centros = Centro.query.order_by(desc(Centro.id)).paginate(page=page, per_page=per_page, error_out=False)
     return render_template('/tables/centro.html', centros=centros)
 
-@app.route('/tabela-registros', methods=['POST'])
-@login_required
-def table_registros_id():
-    nota_fiscal_id = request.form.get('nota_fiscal_id')
-
-    # Consulta o registro específico para obter a chave de acesso
-    registro = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).first()
-    chave_acesso = registro.nota_fiscal.chave_acesso if registro else None
-
-    # Filtra e ordena os registros pelo ID da nota fiscal e pela data de atualização
-    registros = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).order_by(desc(RegistroRecebimento.data_atualizacao)).all()
-
-    return render_template('/tables/registros_chave.html', registros=registros, nota_fiscal_id=nota_fiscal_id, chave_acesso=chave_acesso)
-
-@app.route('/tabela-last-registros')
+@app.route('/tabela/registrosatuais')
 @login_required
 def table_registros_last():
     page = request.args.get('page', 1, type=int)
@@ -55,6 +41,20 @@ def table_registros_last():
     registros = db.session.query(RegistroRecebimento).join(subquery, and_(RegistroRecebimento.nota_fiscal_id == subquery.c.nota_fiscal_id, RegistroRecebimento.id == subquery.c.max_id)).paginate(page=page, per_page=per_page, error_out=False)
 
     return render_template('/tables/last_registros.html', registros=registros)
+
+@app.route('/tabela/historico', methods=['POST'])
+@login_required
+def table_registros_id():
+    nota_fiscal_id = request.form.get('nota_fiscal_id')
+
+    # Consulta o registro específico para obter a chave de acesso
+    registro = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).first()
+    chave_acesso = registro.nota_fiscal.chave_acesso if registro else None
+
+    # Filtra e ordena os registros pelo ID da nota fiscal e pela data de atualização
+    registros = RegistroRecebimento.query.filter_by(nota_fiscal_id=nota_fiscal_id).order_by(desc(RegistroRecebimento.data_atualizacao)).all()
+
+    return render_template('/tables/registros_chave.html', registros=registros, nota_fiscal_id=nota_fiscal_id, chave_acesso=chave_acesso)
 
 @app.route('/chave_acesso/<int:nota_fiscal_id>', methods=['GET', 'POST'])
 @login_required

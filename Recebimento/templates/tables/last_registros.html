@@ -30,7 +30,7 @@
             <td>{{ registro.responsavel.nome }}</td>
             <td>{{ registro.data_atualizacao.strftime("%d/%m/%Y %H:%M") }}h</td>
             <td class="d-flex justify-content-center">
-                <form method="POST" action="/tabela-registros">
+                <form method="POST" action="/tabela/historico">
                     <input type="hidden" name="nota_fiscal_id" value="{{ registro.nota_fiscal.id }}">
                     <button type="submit" class="btn btn-primary" style="background: none; border: none;">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
